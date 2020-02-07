@@ -30,7 +30,13 @@ module mfp_ahb_withloader (
     
   // 7-segment display
     output [7:0]  DISPENOUT,
-    output [7:0]  DISPOUT
+    output [7:0]  DISPOUT,
+    
+  // rojobot
+    input [31:0]  H_BOT_INFO,
+    input         H_BOT_UPDATE_SYNC,
+    output [7:0]  H_BOT_CTRL,
+    output        H_INT_ACK
 );
 
     wire [7:0] char_data;
@@ -129,7 +135,12 @@ module mfp_ahb_withloader (
         .IO_LED           ( IO_LED          ),
         
         .DISPENOUT        ( DISPENOUT       ),
-        .DISPOUT          ( DISPOUT         )
+        .DISPOUT          ( DISPOUT         ),
+        
+        .H_BOT_INFO       ( H_BOT_INFO       ),
+        .H_BOT_UPDATE_SYNC( H_BOT_UPDATE_SYNC),
+        .H_BOT_CTRL       ( H_BOT_CTRL       ),
+        .H_INT_ACK        ( H_INT_ACK        )
     );
 
 endmodule

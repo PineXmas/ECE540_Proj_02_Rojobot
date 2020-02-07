@@ -30,7 +30,7 @@ module mfp_nexys4_ddr(
 
   // Press btnCpuReset to reset the processor. 
         
-  wire clk_out;
+  wire clk_50;
   wire clk_75;  
   wire tck_in, tck;
   
@@ -38,12 +38,31 @@ module mfp_nexys4_ddr(
   wire [5:0]            debounced_PB;
   wire [`MFP_N_SW-1 :0] debounced_SW;
   
+  // Rojobot
+  wire [7:0]  MotCtl_in;
+  wire [7:0]  LocX_reg;
+  wire [7:0]  LocY_reg;
+  wire [7:0]  Sensors_reg;
+  wire [7:0]  BotInfo_reg;
+  wire        upd_sysregs;
+  
+  // Handshake flip-flop
+  reg         H_BOT_UPDATE_SYNC;
+  wire        IO_INT_ACK;
+  
+  // World map
+  wire [13:0] worldmap_addr;
+  wire [2:0]  worldmap_data;
+  
   // --------------------------------------------------
   // INSTANCES
   // --------------------------------------------------
   
-  clk_wiz_0 clk_wiz_0(.clk_in1(CLK100MHZ), .clk_out1(clk_out));
-  clk_wiz_1 clk_wiz_1(.clk_in1(CLK100MHZ), .clk_out1(clk_75));
+  clk_wiz_0 clk_wiz_0(
+    .clk_in1(CLK100MHZ), 
+    .clk_out1(clk_50), 
+    .clk_out2(clk_75)
+  );
   IBUF IBUF1(.O(tck_in),.I(JB[4]));
   BUFG BUFG1(.O(tck), .I(tck_in));
   
@@ -56,15 +75,36 @@ module mfp_nexys4_ddr(
     .BotInfo_reg(BotInfo_reg),        // output wire [7 : 0] BotInfo_reg
     .worldmap_addr(worldmap_addr),    // output wire [13 : 0] worldmap_addr
     .worldmap_data(worldmap_data),    // input wire [1 : 0] worldmap_data
-    .clk_in(clk_in),                  // input wire clk_in
-    .reset(reset),                    // input wire reset
+    .clk_in(clk_75),                  // input wire clk_in
+    .reset(debounced_PB[5]),          // input wire reset
     .upd_sysregs(upd_sysregs),        // output wire upd_sysregs
-    .Bot_Config_reg(Bot_Config_reg)  // input wire [7 : 0] Bot_Config_reg
+    .Bot_Config_reg(debounced_SW)     // input wire [7 : 0] Bot_Config_reg
+  );
+  
+  // handshake flip-flop
+  always @ (posedge clk_50) begin
+    if (IO_INT_ACK == 1'b1) begin
+      H_BOT_UPDATE_SYNC <= 1'b0;
+    end else if (upd_sysregs == 1'b1) begin
+      H_BOT_UPDATE_SYNC <= 1'b1;
+    end else begin
+      H_BOT_UPDATE_SYNC <= H_BOT_UPDATE_SYNC;
+    end
+  end
+  
+  // world map
+  world_map world_map(
+    .clka(clk_75),
+    .addra(worldmap_addr),
+    .douta(worldmap_data),
+    .clkb(clk_75),
+    .addrb(),
+    .doutb()
   );
   
   // debouncer
   debounce debouncer(
-    .clk(clk_out),  
+    .clk(clk_50),  
     .pbtn_in({CPU_RESETN, BTNU, BTND, BTNL, BTNC, BTNR}),
     .switch_in(SW),
     .pbtn_db(debounced_PB),  
@@ -72,8 +112,8 @@ module mfp_nexys4_ddr(
   );
 
   mfp_sys mfp_sys(
-			        .SI_Reset_N(debounced_PB[5]),
-                    .SI_ClkIn(clk_out),
+          .SI_Reset_N(debounced_PB[5]),
+                    .SI_ClkIn(clk_50),
                     .HADDR(),
                     .HRDATA(),
                     .HWDATA(),
@@ -92,7 +132,11 @@ module mfp_nexys4_ddr(
                     .UART_RX(UART_TXD_IN),
                     
                     .DISPENOUT(AN),
-                    .DISPOUT({DP, CA, CB, CC, CD, CE, CF, CG})
+                    .DISPOUT({DP, CA, CB, CC, CD, CE, CF, CG}),
+                    .H_BOT_INFO({LocX_reg, LocY_reg, Sensors_reg, BotInfo_reg}),
+                    .H_BOT_UPDATE_SYNC(H_BOT_UPDATE_SYNC),
+                    .H_BOT_CTRL(MotCtl_in),
+                    .H_INT_ACK(IO_INT_ACK)
                     );
           
 endmodule

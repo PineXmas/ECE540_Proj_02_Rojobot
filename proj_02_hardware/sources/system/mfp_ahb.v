@@ -34,11 +34,17 @@ module mfp_ahb
     
 // 7-segment display
     output [7:0]                DISPENOUT,
-    output [7:0]                DISPOUT
+    output [7:0]                DISPOUT,
+    
+// rojobot
+    input [31:0]                H_BOT_INFO,
+    input                       H_BOT_UPDATE_SYNC,
+    output [7:0]                H_BOT_CTRL,
+    output                      H_INT_ACK
 );
 
 
-  wire [31:0] HRDATA2, HRDATA1, HRDATA0;
+  wire [31:0] HRDATA2, HRDATA1, HRDATA0, HRDATA_ROJOBOT;
   wire [`N_BUS_DEVICES-1 : 0] HSEL;
   reg  [`N_BUS_DEVICES-1 : 0] HSEL_d;
 
@@ -71,8 +77,25 @@ module mfp_ahb
     .DISPOUT(DISPOUT)
   );
 
+  // Module 4 - Rojobot IO
+  mfp_ahb_rojobot_io mfp_ahb_rojobot_io(
+    .HCLK(HCLK),
+    .HRESETn(HRESETn),
+    .HADDR(HADDR[7:0]),
+    .HWDATA(HWDATA),
+    .HWRITE(HWRITE),
+    .HSEL(HSEL[4]),
+    .HTRANS(HTRANS),
+    .H_BOT_INFO(H_BOT_INFO),
+    .H_BOT_UPDATE_SYNC(H_BOT_UPDATE_SYNC),
+    .H_BOT_CTRL(H_BOT_CTRL),
+    .H_INT_ACK(H_INT_ACK),     
+    .HRDATA(HRDATA_ROJOBOT)
+  );
+  
+
   ahb_decoder ahb_decoder(HADDR, HSEL);
-  ahb_mux ahb_mux(HCLK, HSEL_d, HRDATA2, HRDATA1, HRDATA0, HRDATA);
+  ahb_mux ahb_mux(HCLK, HSEL_d, HRDATA2, HRDATA1, HRDATA0, HRDATA_ROJOBOT, HRDATA);
 
 endmodule
 
@@ -88,6 +111,7 @@ module ahb_decoder
   assign HSEL[1] = (HADDR[28]    == `H_RAM_ADDR_Match);         // 256 KB RAM at 0x80000000 (physical: 0x00000000)
   assign HSEL[2] = (HADDR[28:22] == `H_LED_ADDR_Match);         // GPIO at 0xbf800000 (physical: 0x1f800000)
   assign HSEL[3] = (HADDR[31:8]  == `H_7_SEG_ADDR_Match);       // 7-Seg at 0xBF70_0000 (physical: 0x1F70_0000)
+  assign HSEL[4] = (HADDR[31:8]  == `H_ROJOBOT_ADDR_Match);     // Rojobot IO ports at 0xBF80_0000 (physical: 0x1F80_0000)
 endmodule
 
 
@@ -95,16 +119,17 @@ module ahb_mux
 (
     input                           HCLK,
     input      [`N_BUS_DEVICES : 0] HSEL,
-    input      [31:0]               HRDATA2, HRDATA1, HRDATA0,
+    input      [31:0]               HRDATA2, HRDATA1, HRDATA0, HRDATA_ROJOBOT,
     output reg [31:0]               HRDATA
 );
 
     always @(*)
       casez (HSEL)
-	      `N_BUS_DEVICES'b???1:     HRDATA = HRDATA0;
-	      `N_BUS_DEVICES'b??10:     HRDATA = HRDATA1;
-	      `N_BUS_DEVICES'b?100:     HRDATA = HRDATA2;
-	      `N_BUS_DEVICES'b1000:     HRDATA = HRDATA1;    // the 7-Seg is not readable, for now (Project 1)
+	      `N_BUS_DEVICES'b????1:     HRDATA = HRDATA0;
+	      `N_BUS_DEVICES'b???10:     HRDATA = HRDATA1;
+	      `N_BUS_DEVICES'b??100:     HRDATA = HRDATA2;
+	      `N_BUS_DEVICES'b?1000:     HRDATA = HRDATA1;           // the 7-Seg is not readable, for now (Project 1)
+	      `N_BUS_DEVICES'b10000:     HRDATA = HRDATA_ROJOBOT;    // the Rojobot is readable (bot-info & update-sync)
 	      default:     HRDATA = HRDATA1;
       endcase
 endmodule

@@ -29,7 +29,13 @@ module mfp_sys(
                     
                     // 7-segment display
                     output [7:0]            DISPENOUT,
-                    output [7:0]            DISPOUT
+                    output [7:0]            DISPOUT,
+                        
+                    // rojobot
+                    input [31:0]            H_BOT_INFO,
+                    input                   H_BOT_UPDATE_SYNC,
+                    output [7:0]            H_BOT_CTRL,
+                    output                  H_INT_ACK
                     );
 
 
@@ -310,7 +316,12 @@ module mfp_sys(
         .MFP_Reset_serialload   (   MFP_Reset_serialload    ),
         
         .DISPENOUT              (   DISPENOUT               ),
-        .DISPOUT                (   DISPOUT                 )
+        .DISPOUT                (   DISPOUT                 ),
+        
+        .H_BOT_INFO             (   H_BOT_INFO              ),
+        .H_BOT_UPDATE_SYNC      (   H_BOT_UPDATE_SYNC       ),
+        .H_BOT_CTRL             (   H_BOT_CTRL              ),
+        .H_INT_ACK              (   H_INT_ACK               )
     );
 
 
