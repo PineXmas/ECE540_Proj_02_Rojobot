@@ -30,7 +30,8 @@ module mfp_nexys4_ddr(
 
   // Press btnCpuReset to reset the processor. 
         
-  wire clk_out; 
+  wire clk_out;
+  wire clk_75;  
   wire tck_in, tck;
   
   // Debounced button & switch signals
@@ -42,8 +43,24 @@ module mfp_nexys4_ddr(
   // --------------------------------------------------
   
   clk_wiz_0 clk_wiz_0(.clk_in1(CLK100MHZ), .clk_out1(clk_out));
+  clk_wiz_1 clk_wiz_1(.clk_in1(CLK100MHZ), .clk_out1(clk_75));
   IBUF IBUF1(.O(tck_in),.I(JB[4]));
   BUFG BUFG1(.O(tck), .I(tck_in));
+  
+  // rojobot
+  rojobot31_0 robot (
+    .MotCtl_in(MotCtl_in),            // input wire [7 : 0] MotCtl_in
+    .LocX_reg(LocX_reg),              // output wire [7 : 0] LocX_reg
+    .LocY_reg(LocY_reg),              // output wire [7 : 0] LocY_reg
+    .Sensors_reg(Sensors_reg),        // output wire [7 : 0] Sensors_reg
+    .BotInfo_reg(BotInfo_reg),        // output wire [7 : 0] BotInfo_reg
+    .worldmap_addr(worldmap_addr),    // output wire [13 : 0] worldmap_addr
+    .worldmap_data(worldmap_data),    // input wire [1 : 0] worldmap_data
+    .clk_in(clk_in),                  // input wire clk_in
+    .reset(reset),                    // input wire reset
+    .upd_sysregs(upd_sysregs),        // output wire upd_sysregs
+    .Bot_Config_reg(Bot_Config_reg)  // input wire [7 : 0] Bot_Config_reg
+  );
   
   // debouncer
   debounce debouncer(
