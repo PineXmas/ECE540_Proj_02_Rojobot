@@ -25,7 +25,11 @@ module mfp_nexys4_ddr(
                         
                         // 7-segment display
                         output [7:0]            AN,
-                        output                  DP, CA, CB, CC, CD, CE, CF, CG
+                        output                  DP, CA, CB, CC, CD, CE, CF, CG,
+                        
+                        // VGA
+                        output [3:0]          VGA_R, VGA_G, VGA_B,
+                        output                VGA_HS, VGA_VS
                         );
 
   // Press btnCpuReset to reset the processor. 
@@ -45,6 +49,7 @@ module mfp_nexys4_ddr(
   wire [7:0]  Sensors_reg;
   wire [7:0]  BotInfo_reg;
   wire        upd_sysregs;
+  wire [11:0] icon;
   
   // Handshake flip-flop
   reg         H_BOT_UPDATE_SYNC;
@@ -52,7 +57,13 @@ module mfp_nexys4_ddr(
   
   // World map
   wire [13:0] worldmap_addr;
-  wire [2:0]  worldmap_data;
+  wire [1:0]  worldmap_data;
+  reg  [13:0] vid_addr;
+  wire [1:0]  world_pixel;
+  
+  // VGA
+  wire [11:0] pixel_column, pixel_row;
+  wire        video_on;
   
   // --------------------------------------------------
   // INSTANCES
@@ -98,8 +109,45 @@ module mfp_nexys4_ddr(
     .addra(worldmap_addr),
     .douta(worldmap_data),
     .clkb(clk_75),
-    .addrb(),
-    .doutb()
+    .addrb(vid_addr),
+    .doutb(world_pixel)
+  );
+  
+  // dtg
+  dtg dtg(
+    .clock(clk_75),
+    .rst(~(debounced_PB[5])),
+    .horiz_sync(VGA_HS),
+    .vert_sync(VGA_VS), 
+    .video_on(video_on),    
+    .pixel_row(pixel_row), 
+    .pixel_column(pixel_column)
+  );
+  
+  // scaler
+  always @(*) begin
+    // keep as is, for now, scaling later
+    vid_addr[6 :0] = pixel_column >> 2;
+    vid_addr[13:7] = pixel_row >> 2;
+  end
+  
+  // rojobot ICON
+  robot_icon robot_icon(
+    .pixel_row(pixel_row),
+    .pixel_column(pixel_column),
+    .LocX_reg(LocX_reg),
+    .LocY_reg(LocY_reg),
+    .BotInfo_reg(BotInfo_reg),
+    .icon(icon)
+  );
+  
+  colorizer colorizer(
+    .icon(icon),
+    .world_pixel(world_pixel),
+    .video_on(video_on),
+    .VGA_R(VGA_R),
+    .VGA_G(VGA_G),
+    .VGA_B(VGA_B)
   );
   
   // debouncer
