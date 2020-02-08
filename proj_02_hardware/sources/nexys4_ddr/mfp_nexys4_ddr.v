@@ -76,7 +76,7 @@ module mfp_nexys4_ddr(
     .worldmap_addr(worldmap_addr),    // output wire [13 : 0] worldmap_addr
     .worldmap_data(worldmap_data),    // input wire [1 : 0] worldmap_data
     .clk_in(clk_75),                  // input wire clk_in
-    .reset(debounced_PB[5]),          // input wire reset
+    .reset(~(debounced_PB[5])),          // input wire reset
     .upd_sysregs(upd_sysregs),        // output wire upd_sysregs
     .Bot_Config_reg(debounced_SW)     // input wire [7 : 0] Bot_Config_reg
   );
@@ -133,7 +133,8 @@ module mfp_nexys4_ddr(
                     
                     .DISPENOUT(AN),
                     .DISPOUT({DP, CA, CB, CC, CD, CE, CF, CG}),
-                    .H_BOT_INFO({LocX_reg, LocY_reg, Sensors_reg, BotInfo_reg}),
+                    
+                    .H_BOT_INFO({LocX_reg, LocY_reg, Sensors_reg, BotInfo_reg}),                    
                     .H_BOT_UPDATE_SYNC(H_BOT_UPDATE_SYNC),
                     .H_BOT_CTRL(MotCtl_in),
                     .H_INT_ACK(IO_INT_ACK)

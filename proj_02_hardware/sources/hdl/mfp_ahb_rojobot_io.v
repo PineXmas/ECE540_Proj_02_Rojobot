@@ -1,8 +1,7 @@
-// mfp_ahb_7_seg.v
+// mfp_ahb_rojobot_io.v
 // Thong & Deepen
 //
-// 7 Segment Display for 
-// Digilent's (Xilinx) Nexys4-DDR board
+// Handle IO of Rojobot
 
 `include "mfp_ahb_const.vh"
 
@@ -23,8 +22,6 @@ module mfp_ahb_rojobot_io(
 
   // DECLARATIONS
   reg [7:0]   HADDR_d;
-  reg [31:0]  H_BOT_INFO_d;
-  reg         H_BOT_UPDATE_SYNC_d;
   reg         HWRITE_d;
   reg         HSEL_d;
   reg         HTRANS_d;
@@ -37,8 +34,6 @@ module mfp_ahb_rojobot_io(
     HWRITE_d <= HWRITE;
     HSEL_d   <= HSEL;
     HTRANS_d <= HTRANS;
-    H_BOT_UPDATE_SYNC_d <= H_BOT_UPDATE_SYNC;
-    H_BOT_INFO_d <= H_BOT_INFO;
   end
   
   // determine write enable signal
@@ -48,10 +43,10 @@ module mfp_ahb_rojobot_io(
   always @ (posedge HCLK, negedge HRESETn)
   begin
     if (~HRESETn) begin
-      H_INT_ACK   <= 0;
+      H_INT_ACK   <= 1'b0;
       H_BOT_CTRL  <= 8'h00;
     end
-    else if (we) begin
+    else if (HSEL_d & HWRITE_d) begin
       case (HADDR_d)
         // bot control
         8'h10: H_BOT_CTRL <= HWDATA[7:0];
@@ -66,15 +61,15 @@ module mfp_ahb_rojobot_io(
   always @ (posedge HCLK, negedge HRESETn)
     begin
       if (~HRESETn) begin
-        HRDATA <= 32'h00000000;
+        HRDATA <= 32'h00_00_00_00;
       end
       else begin
-        case (HADDR_d)
+        case (HADDR)
           // bot info
-          8'h0C: HRDATA <= H_BOT_INFO_d;
+          8'h0C: HRDATA <= H_BOT_INFO;
           
           // update sync
-          8'h14: HRDATA <= {31'h00000000, H_BOT_UPDATE_SYNC_d};
+          8'h14: HRDATA <= {31'h00_00_00_00, H_BOT_UPDATE_SYNC};
         endcase
       end
     end

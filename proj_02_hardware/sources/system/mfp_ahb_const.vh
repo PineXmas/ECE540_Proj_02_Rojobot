@@ -66,4 +66,6 @@
 //---------------------------------------------------
 
 // Rojobot
-`define H_ROJOBOT_ADDR_Match (24'h1F8000)
+
+// using "C" instead of "8" like in the question to make C appears in bits 28:22 --> differentiate from other modules  
+`define H_ROJOBOT_ADDR_Match (24'h1F6000)

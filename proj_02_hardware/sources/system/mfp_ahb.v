@@ -117,10 +117,10 @@ endmodule
 
 module ahb_mux
 (
-    input                           HCLK,
-    input      [`N_BUS_DEVICES : 0] HSEL,
-    input      [31:0]               HRDATA2, HRDATA1, HRDATA0, HRDATA_ROJOBOT,
-    output reg [31:0]               HRDATA
+    input                             HCLK,
+    input      [`N_BUS_DEVICES-1 : 0] HSEL,
+    input      [31:0]                 HRDATA2, HRDATA1, HRDATA0, HRDATA_ROJOBOT,
+    output reg [31:0]                 HRDATA
 );
 
     always @(*)

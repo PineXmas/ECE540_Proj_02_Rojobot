@@ -95,10 +95,10 @@ PORT_SEVENSEG_HGH	= 0xbf700004		# (o) 7 Segment Higher Display
 PORT_SEVENSEG_LOW	= 0xbf700008		# (o) 7 Segment Lower Display
 PORT_SEVENSEG_DP	= 0xbf70000c		# (o) 7 segment Decimal Point Display
 
-PORT_BOTINFO		= 0xbf80000c		# (i) Bot Info port
-PORT_BOTCTRL		= 0xbf800010		# (o) Bot Control port
-PORT_BOTUPDT		= 0xbf800014		# (i) Bot Update port (Poll)
-PORT_INTACK			= 0xbf800018		# (o) Bot Int Ack
+PORT_BOTINFO		= 0xbf60000c		# (i) Bot Info port
+PORT_BOTCTRL		= 0xbf600010		# (o) Bot Control port
+PORT_BOTUPDT		= 0xbf600014		# (i) Bot Update port (Poll)
+PORT_INTACK			= 0xbf600018		# (o) Bot Int Ack
 
 # =====================================
 # === Register bit mappings (masks) ===
@@ -281,6 +281,7 @@ SP_MVMTF 	= 0x1B		# Fast right turn - display lower case R
 
 .globl main
 main:
+
    				lui   $12, 0xbf80    			# $12 = address of LEDs (0xbf800000)
 				li	$2,		FALSE				# clear the semaphore
 				jal	LED_wrleds					#
@@ -298,21 +299,21 @@ main:
 				sb $2, SP_RGTC0NT
 
 
-
 # ==================
 # === Main  Loop ===
 # ==================
 
 main_L0:
-/*
+
 				li    $13, PORT_BOTUPDT			#	while(25) {  // main loop is an infinite loop
 				lw 	  $21, 0($13) 				#	while (upd_sysreg == 0)  {}   // loop until isr updates rojobot registers
 				beq	  $21, $0, main_L0
 				nop
-				*/
+
 				li 	  $13, PORT_INTACK			#   Load the Acknowledgement port address 
 				li 	  $21, INT_ACK				#   Set the Acknowledgement bit 
 				sw 	  $21, 0($13)				# 	Write the Acknowledgement bit
+
 main_L1:
 				li    $13, PORT_BOTINFO			# 	Load the BotInfo port address
 				lw 	  $21, 0($13)				#	Read the BotInfo Register
@@ -344,9 +345,11 @@ main_L2:		jal	wr_alldigits				#	write all of the digits to the display
 				lb	$2,	SENSOR_REG				#	update LEDs with new sensor information
 				jal	LED_wrleds					#
 				nop
+
 				li 	  $13, PORT_INTACK			#	Clear the Acknowledgement bit 
 				li 	  $21, FALSE
 				sw 	  $21, 0($13)
+
 				beq   $0, $0,	next_step		#	tell rojobot what to do next
 				nop
 ret_next_step:
@@ -677,6 +680,46 @@ next_step:		lb 		$25,(SENSOR_REG)
 				nop
 
 
+# ==============================================================================
+# === reorder_btns() - Rearrange read bits of the push buttons               ===
+# === Registers affected: $25, $21, $4                                       ===
+# === Reorder from xxxU-DLCR --> xxxC-LURD                                   ===
+# === $4: original order, $21: temp reg, $25: target order                   ===
+# ==============================================================================
+reorder_btns:
+				add		$25, $0, $0				# init $25 to zero
+
+				# set D to bit[0]
+				srl		$21, $4, 3				# move D to bit 0 by shift right 3 positions
+				and		$21, $21, 0x00000001	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFFE	# clear the target bit
+				or		$25, $25, $21			# assign bit[0] from $21 to $25, w/o changing the other bits
+
+				# set R to bit[1]
+				sll		$21, $4, 1				# move R to bit 1 by shift left 1 position
+				and		$21, $21, 0x00000002	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFFD	# clear the target bit
+				or		$25, $25, $21			# assign bit[1] from $21 to $25, w/o changing the other bits
+
+				# set U to bit[2]
+				srl		$21, $4, 2				# move U to bit 2 by shift right 2 positions
+				and		$21, $21, 0x00000004	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFFB	# clear the target bit
+				or		$25, $25, $21			# assign bit[2] from $21 to $25, w/o changing the other bits
+
+				# set L to bit[3]
+				sll		$21, $4, 1				# move L to bit 3 by shift left 1 position
+				and		$21, $21, 0x00000008	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFF7	# clear the target bit
+				or		$25, $25, $21			# assign bit[3] from $21 to $25, w/o changing the other bits
+
+				# set C to bit [4]..., but we don't need it after all, so skip!
+
+				# assign result to $4 and return
+				add		$4, $25, $0
+				jr		$ra
+				nop
+
 #*************************
 # Nexy$5 I/O Functions
 #*************************
@@ -687,16 +730,25 @@ next_step:		lb 		$25,(SENSOR_REG)
 # Returns the 5 pushbuttons. The buttons are returned as follows
 # (assuming the inputs to the I/O interface matches this order)
 # example:
-#    bit  7    6      5        4        3        2        25         0
+#    bit  7    6      5        4        3        2         1         0
 #         r    r   	  r    btn_cntr  btn_left  btn_up  btn_right  btn_down
 #
-# where r = reserved. A value of 25 indicates that the button is pressed.
+# where r = reserved. A value of 1 indicates that the button is pressed.
 # A 0 indicates that the button is not pressed.
 #
 # Registers used $25
 #---------------------
 DEB_rdbtns:		li		$25,		PORT_PBTNS			# read the buttons
 				lw		$4, 	0($25)
+
+				# reorder the button positions, according to the Nexys4 DDR
+				addi	$sp, $sp, -4				# push ra to stack
+				sw		$ra, 0($sp)
+				jal		reorder_btns				# call function
+				nop
+				lw		$ra, 0($sp)					# pop ra from stack
+				addi	$sp, $sp, 4
+
 				and		$4, $4,	MSK_ALLBTNS			# mask out unused bits
 				jr 	$ra								# and return
 				nop
@@ -736,7 +788,6 @@ SS_wrdpts:		lb		$25,	SP_OLDDP				# Copy the decimal points to $25 to leave $2 un
 				sw		$25,		0($2)	# write the decimal points to the display
 				jr    $ra
 				nop
-
 
 # Different variables for lookup table, BotInfo register, LOCx_REG, LOCy_REG, Old_Heading register,
 # 7 segment displays, and other variables required. All are byte wides except SP_TEMP which is word
