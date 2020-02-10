@@ -298,13 +298,19 @@ main:
 				li	$2, FALSE
 				sb $2, SP_RGTC0NT
 
-
 # ==================
 # === Main  Loop ===
 # ==================
 
 main_L0:
+				# determine robot mode by read switch [15]: OFF=MANUAL, ON=AUTO
+				lw	  	$t0, (PORT_SLSWTCH)
+				not		$t0, $t0				# flip the switches, due to active-low
+				and		$t0, $t0, 0x8000		# mask out all switches except [15]
+				srl		$t0, $t0, 15			# move [15] to position 0
+				sb		$t0, (SP_ROBOT_MODE)
 
+				# polling for the robot interrupt
 				li    $13, PORT_BOTUPDT			#	while(25) {  // main loop is an infinite loop
 				lw 	  $21, 0($13) 				#	while (upd_sysreg == 0)  {}   // loop until isr updates rojobot registers
 				beq	  $21, $0, main_L0
@@ -659,11 +665,71 @@ next_loc:		lb		$25,	(LOCx_REG)			# Dig[3:2] gets X-coordinate
 
 # ==============================================================================
 # === next_step() - Tells rojobot what to do next                            ===
-# === Registers affected: $25, $2                                             ===
+# === Registers affected: $25, $2                                            ===
 # === This version reads the pushbuttons, calculates the new Motor Control   ===
 # === register value and then writes MotCtl so Rojobot knows what to do      ===
 # ==============================================================================
-next_step:		lb 		$25,(SENSOR_REG)
+next_step:
+
+				# determine MANUAL or AUTO mode
+				lb		$t0, (SP_ROBOT_MODE)
+				bne		$t0, $0, next_step_manual
+
+next_step_auto:
+
+				# check if on the line: YES to check state-navigating, NO to back off
+
+				# DO back-off:
+				# - check if this is the first time state-navigating is set to 1: YES to remember begin-rotation direction
+				# - set "not rotate"
+				# - back off
+				# - return
+
+				# check state-navigating:
+				# 0 (not navigating): to move forward
+				# 1 (is navigating) :
+				#	check state-rotating:
+				#		YES to check state-rotating
+				# 3 (no answer)     : return
+
+				# DO move-forward: check obstable before moving:
+				# YES:	check if this is the first time state-navigating is set to 1
+				# 			YES to remember begin-rotation direction & set "not rotate"
+				#		check state-rotating
+				#
+				# NO:	move & return
+
+				# check state-rotating:
+				# 0 (not rotate)   : go to find-next-target
+				# 1 (is rotating)  : check if meet target:
+				#	YES:
+				#		- set state-rotating to 2
+				#		- remember current location
+				#		- set state-navigating to 2
+				#		- move forward
+				#	NO to keep rotating & return
+				# 2 (done rotation): move forward & return
+
+				# find next target
+				# - repeat picking next target & check valid:
+				# 	- different from the begin-rotation direction
+				# 	- not the opposite of the begin-rotation direction
+				# FOUND    : set rotating-to-target to 1 & start rotating
+				# NOT FOUND: set navigating to 3 & return
+
+
+				# keep moving forward 10 times
+				lw		$t1, (SP_TEMP_1)
+				li		$t2, 1
+				bgt		$t1, $t2, ret_next_step
+				addi	$t1, $t1, 1
+				sw		$t1, (SP_TEMP_1)
+				li		$t0, 0x33
+				sw		$t0, (PORT_BOTCTRL)
+				j		ret_next_step
+
+next_step_manual:
+				lb 		$25,(SENSOR_REG)
 				lb 		$2,	(SENSOR_REG)
 				lb 		$3,	(SENSOR_REG)
 				AND 	$25,	$25,MSKPROXL
@@ -863,3 +929,6 @@ SP_MVTBAS16:.byte 	0
 SP_RGTC0NT:	.byte 	0
 SP_TEMP: 	.word	0x00
 
+# Robot mode: 0=manual, 1=auto
+SP_ROBOT_MODE: 	.byte 0
+SP_TEMP_1:		.word 0
