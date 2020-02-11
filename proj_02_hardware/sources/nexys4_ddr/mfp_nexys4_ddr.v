@@ -57,9 +57,9 @@ module mfp_nexys4_ddr(
   
   // World map
   wire [13:0] worldmap_addr;
-  wire [1:0]  worldmap_data;
+  wire [1:0]  worldmap_data, worldmap_data_part_1, worldmap_data_lr;
   reg  [13:0] vid_addr;
-  wire [1:0]  world_pixel;
+  wire [1:0]  world_pixel, world_pixel_part_1, world_pixel_lr;
   
   // VGA
   wire [11:0] pixel_column, pixel_row;
@@ -103,15 +103,29 @@ module mfp_nexys4_ddr(
     end
   end
   
-  // world map
+  // world map part 1
   world_map world_map(
     .clka(clk_75),
     .addra(worldmap_addr),
-    .douta(worldmap_data),
+    .douta(worldmap_data_part_1),
     .clkb(clk_75),
     .addrb(vid_addr),
-    .doutb(world_pixel)
+    .doutb(world_pixel_part_1)
   );
+  
+  // world map lr
+  world_map_lr world_map_lr(
+    .clka(clk_75),
+    .addra(worldmap_addr),
+    .douta(worldmap_data_lr),
+    .clkb(clk_75),
+    .addrb(vid_addr),
+    .doutb(world_pixel_lr)
+  );
+  
+  // mux to select map based on the SW
+  assign worldmap_data = debounced_SW[14] ? worldmap_data_lr : worldmap_data_part_1;
+  assign world_pixel   = debounced_SW[14] ? world_pixel_lr   : world_pixel_part_1;
   
   // dtg
   dtg dtg(
@@ -141,6 +155,7 @@ module mfp_nexys4_ddr(
     .icon(icon)
   );
   
+  // colorizer
   colorizer colorizer(
     .icon(icon),
     .world_pixel(world_pixel),
