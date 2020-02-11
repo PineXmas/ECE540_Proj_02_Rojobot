@@ -695,14 +695,18 @@ nsa_running:
 				sb		$t0, (PORT_BOTCTRL)
 				j		ret_next_step
 				nop
-nsa_running_to_backoff:
 
+nsa_running_to_backoff:
                 # reset for a new navigating-session
 
-                # remember starting direction
+                # remember starting direction & compute the opposite direction
 				lb		$t0, (BOTINF_REG)					# t0 = bot info reg
 				and		$t0, $t0, 0x7                       # mask out all bits except orientation [2:0]
 				sw      $t0, (SP_NSA_START_DIRECTION)       # remember starting direction
+				addi    $t0, $t0, 4                         # t0 = opposite = start + 4 (according to orient. code)
+				li      $t1, 8                              # wrap back to less than 8
+                rem     $t0, $t0, $t1
+                sw      $t0, (SP_NSA_OPPOSITE_DIRECTION)    # remember opposite direction
 
 				# reset trial-direction, to be the same as starting direction
 				lw      $t0, (SP_NSA_START_DIRECTION)
@@ -738,17 +742,48 @@ nsa_back_off_online:
 // ==================================================
 nsa_find_valid_direction:
                 # eventually try all 6 possible directions (except the starting & the opposite direction)
+
+                # try next direction
                 lw      $t0, (SP_NSA_TRIAL_DIRECTION)
-                addi    $t0, $t0, 1                         # next trial direction
+                addi    $t0, $t0, 1                         # t0 = next trial direction
                 li      $t1, 8                              # wrap back to less than 8
                 rem     $t0, $t0, $t1
 
-                # keep trying until found a valid direction
+                # change state to STOP if no valid direction is found (trial goes back to starting direction)
+                lw      $t1, (SP_NSA_START_DIRECTION)       # t1 = starting direction
+                beq     $t0, $t1, nsa_find_to_stop
+
+                # skip current direction if equal to the opposite direction
+                lw      $t1, (SP_NSA_OPPOSITE_DIRECTION)    # t1 = opposite direction
+                beq     $t0, $t1, nsa_find_valid_direction
+
+                # change state to ROTATING
+                sw      $t0, (SP_NSA_TRIAL_DIRECTION)       # store the trial direction
+                la      $t0, nsa_rotating                   # set state to ROTATING
+                sw      $t0, (SP_NSA_STATE)
+                li      $t0, 0x30                           # send command "right 1x"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step
+nsa_find_to_stop:
+                # direction not found, so change state to STOP
+                li      $t0, 0x0                            # send command "stop"
+                sb      $t0, (PORT_BOTCTRL)
+                la      $t0, nsa_stop                       # set state to STOP
+                sw      $t0, (SP_NSA_STATE)
+                j       ret_next_step
 
 // ==================================================
 // State: ROTATING
 // ==================================================
 nsa_rotating:
+                # keep rotating right until trial direction is reached
+
+                # get current direction
+                lb      $t0, (BOTINF_REG)                   # t0 = bot info reg
+                and     $t0, $t0, 0x7                       # mask out all bits except [2:0], t0 = current direction
+
+                # change state to VERIFY_ANSWER if trial direction is reached
+
 
 // ==================================================
 // State: VERIFY ANSWER
@@ -761,6 +796,7 @@ nsa_verify_answer:
 nsa_stop:
 				li		$t0, 0x0							# send command "stop"
 				sb		$t0, (PORT_BOTCTRL)
+				j       ret_next_step
 
 /*
 				# keep moving forward 10 times
@@ -1002,8 +1038,9 @@ SP_TEMP_1: .word 0
 # Current state of the robot
 SP_NSA_STATE: .word 0
 
-# Hold the starting direction, before trying any other directions
+# Hold the starting direction & the opposite of it, before trying any other directions
 SP_NSA_START_DIRECTION: .word 0
+SP_NSA_OPPOSITE_DIRECTION: .word 0
 
 # Hold the current trial direction
 SP_NSA_TRIAL_DIRECTION: .word 0
