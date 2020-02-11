@@ -683,9 +683,10 @@ next_step_auto:
 				# load & resume current state
 				lw		$t0, (SP_NSA_STATE)
 				jr		$t0
+				nop
 
 // ==================================================
-// State: RUNNING
+// State RUNNING: keep moving forward until "off" line
 // ==================================================
 nsa_running:
 				# keep moving forward until "off" line --> BACKOFF
@@ -699,7 +700,7 @@ nsa_running:
 nsa_running_to_backoff:
                 # reset for a new navigating-session
 
-                # remember starting direction & compute the opposite direction
+                # remember starting direction & opposite direction
 				lb		$t0, (BOTINF_REG)					# t0 = bot info reg
 				and		$t0, $t0, 0x7                       # mask out all bits except orientation [2:0]
 				sw      $t0, (SP_NSA_START_DIRECTION)       # remember starting direction
@@ -721,33 +722,39 @@ nsa_running_to_backoff:
 				nop
 
 // ==================================================
-// State: BACK OFF
+// State BACK OFF: keep moving reverse until "on" line
 // ==================================================
 nsa_back_off:
-                # keep moving reverse until "on" line --> FIND_VALID_DIRECTION
+
+                # keep moving reverse until robot is on the black line
                 jal     check_off_black_line
                 beq     $v0, $0, nsa_back_off_online        # change state to FIND_VALID_DIRECTION if back on black line
                 li      $t0, 0x22                           # send command "reverse" if still off black line
                 sb      $t0, (PORT_BOTCTRL)
-                j       ret_next_step
+                j       ret_next_step                       # return
+                nop
+
 nsa_back_off_online:
+
+                # robot is now on the black line, change state to FIND_VALID_DIRECTION
                 la      $t0, nsa_find_valid_direction       # set state to FIND_VALID_DIRECTION
                 sw      $t0, (SP_NSA_STATE)
                 li      $t0, 0x0                            # send command "stop"
                 sb      $t0, (PORT_BOTCTRL)
-				j       ret_next_step
+				j       ret_next_step                       # return
+				nop
 
 // ==================================================
-// State: FIND VALID DIRECTION
+// State FIND VALID DIRECTION: eventually try all 6 possible directions (except the starting & the opposite direction)
 // ==================================================
 nsa_find_valid_direction:
-                # eventually try all 6 possible directions (except the starting & the opposite direction)
 
                 # try next direction
-                lw      $t0, (SP_NSA_TRIAL_DIRECTION)
-                addi    $t0, $t0, 1                         # t0 = next trial direction
-                li      $t1, 8                              # wrap back to less than 8
+                lw      $t0, (SP_NSA_TRIAL_DIRECTION)       # t0 = current trial direction
+                addi    $t0, $t0, 1                         # t0++ = next trial direction
+                li      $t1, 8                              # wrap back t0 to less than 8
                 rem     $t0, $t0, $t1
+                sw      $t0, (SP_NSA_TRIAL_DIRECTION)       # store the trial direction
 
                 # change state to STOP if no valid direction is found (trial goes back to starting direction)
                 lw      $t1, (SP_NSA_START_DIRECTION)       # t1 = starting direction
@@ -757,46 +764,108 @@ nsa_find_valid_direction:
                 lw      $t1, (SP_NSA_OPPOSITE_DIRECTION)    # t1 = opposite direction
                 beq     $t0, $t1, nsa_find_valid_direction
 
-                # change state to ROTATING
-                sw      $t0, (SP_NSA_TRIAL_DIRECTION)       # store the trial direction
+                # valid direction found, change state to ROTATING
                 la      $t0, nsa_rotating                   # set state to ROTATING
                 sw      $t0, (SP_NSA_STATE)
                 li      $t0, 0x30                           # send command "right 1x"
                 sb      $t0, (PORT_BOTCTRL)
                 j       ret_next_step
+                nop
+
 nsa_find_to_stop:
+
                 # direction not found, so change state to STOP
                 li      $t0, 0x0                            # send command "stop"
                 sb      $t0, (PORT_BOTCTRL)
                 la      $t0, nsa_stop                       # set state to STOP
                 sw      $t0, (SP_NSA_STATE)
                 j       ret_next_step
+                nop
 
 // ==================================================
-// State: ROTATING
+// State ROTATING: keep rotating right until trial direction is reached
 // ==================================================
 nsa_rotating:
-                # keep rotating right until trial direction is reached
 
                 # get current direction
                 lb      $t0, (BOTINF_REG)                   # t0 = bot info reg
                 and     $t0, $t0, 0x7                       # mask out all bits except [2:0], t0 = current direction
 
                 # change state to VERIFY_ANSWER if trial direction is reached
+                lw      $t1, (SP_NSA_TRIAL_DIRECTION)       # t1 = trial direction
+                beq     $t0, $t1, nsa_rotating_to_verify    # change state to VERIFY_ANSWER if equal
+                li      $t0, 0x30                           # otherwise, keep rotating right by sending command "right 1x"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step
+                nop
 
+nsa_rotating_to_verify:
+
+                # remember current location
+                lb      $t0, (LOCx_REG)                     # t0 = current X
+                sw      $t0, (SP_NSA_LOC_X)                 # store current X
+                lb      $t0, (LOCy_REG)                     # t0 = current Y
+                sw      $t0, (SP_NSA_LOC_Y)                 # store current Y
+
+                # trial direction has been reached, change state to VERIFY_ANSWER
+                li      $t0, 0x0                            # send command "stop"
+                sb      $t0, (PORT_BOTCTRL)
+                la      $t0, nsa_verify_answer              # set state to VERIFY_ANSWER
+                sw      $t0, (SP_NSA_STATE)
+                j       ret_next_step
+                nop
 
 // ==================================================
-// State: VERIFY ANSWER
+// State VERIFY ANSWER: try current direction if still "on" line for verification, otherwise back-off to find another valid direction
 // ==================================================
 nsa_verify_answer:
 
+                # change state to BACKOFF if "off" line
+                jal     check_off_black_line                # get current black-line status
+                beq     $v0, $0, nsa_verify_online          # go to compare position if still "on" line
+                la      $t0, nsa_back_off                   # set state to BACKOFF
+                sw      $t0, (SP_NSA_STATE)
+                li      $t0, 0x22                           # send command "reverse"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step                       # return
+                nop
+
+nsa_verify_online:
+
+                # change to state RUNNING if different in X
+                lb      $t0, (LOCx_REG)                     # t0 = current X
+                lw      $t1, (SP_NSA_LOC_X)                 # t1 = start X
+                bne     $t0, $t1, nsa_verify_to_running     # change to state RUNNING if different X
+
+                # change to state RUNNING if different in Y
+                lb      $t0, (LOCy_REG)                     # t0 = current Y
+                lw      $t1, (SP_NSA_LOC_Y)                 # t1 = start Y
+                bne     $t0, $t1, nsa_verify_to_running     # change to state RUNNING if different Y
+
+                # keep moving forward
+                li      $t0, 0x33                           # send command "forward"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step                       # return
+                nop
+
+nsa_verify_to_running:
+
+                # a correct answer has been found, change state to RUNNING
+                li      $t0, 0x33                           # send command "forward"
+                sb      $t0, (PORT_BOTCTRL)
+                la      $t0, nsa_running                    # set state to RUNNING
+                sw      $t0, (SP_NSA_STATE)
+                j       ret_next_step                       # return
+                nop
+
 // ==================================================
-// State: STOP
+// State STOP: stop if there is no valid direction to try
 // ==================================================
 nsa_stop:
 				li		$t0, 0x0							# send command "stop"
 				sb		$t0, (PORT_BOTCTRL)
 				j       ret_next_step
+				nop
 
 /*
 				# keep moving forward 10 times
@@ -1044,3 +1113,7 @@ SP_NSA_OPPOSITE_DIRECTION: .word 0
 
 # Hold the current trial direction
 SP_NSA_TRIAL_DIRECTION: .word 0
+
+# Hold current position, before doing a navigating session
+SP_NSA_LOC_X: .word 0
+SP_NSA_LOC_Y: .word 0
