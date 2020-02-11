@@ -298,6 +298,10 @@ main:
 				li	$2, FALSE
 				sb $2, SP_RGTC0NT
 
+				# reset robot state to RUNNING
+				la	$t0, nsa_running
+				sw	$t0, (SP_NSA_STATE)
+
 # ==================
 # === Main  Loop ===
 # ==================
@@ -676,48 +680,89 @@ next_step:
 				bne		$t0, $0, next_step_manual
 
 next_step_auto:
+				# load & resume current state
+				lw		$t0, (SP_NSA_STATE)
+				jr		$t0
 
-				# check if on the line: YES to check state-navigating, NO to back off
+// ==================================================
+// State: RUNNING
+// ==================================================
+nsa_running:
+				# keep moving forward until "off" line --> BACKOFF
+				jal		check_off_black_line
+				bne		$v0, $0, nsa_running_to_backoff     # change state to BACKOFF if off line
+				li		$t0, 0x33                           # send command "forward"
+				sb		$t0, (PORT_BOTCTRL)
+				j		ret_next_step
+				nop
+nsa_running_to_backoff:
 
-				# DO back-off:
-				# - check if this is the first time state-navigating is set to 1: YES to remember begin-rotation direction
-				# - set "not rotate"
-				# - back off
-				# - return
+                # reset for a new navigating-session
 
-				# check state-navigating:
-				# 0 (not navigating): to move forward
-				# 1 (is navigating) :
-				#	check state-rotating:
-				#		YES to check state-rotating
-				# 3 (no answer)     : return
+                # remember starting direction
+				lb		$t0, (BOTINF_REG)					# t0 = bot info reg
+				and		$t0, $t0, 0x7                       # mask out all bits except orientation [2:0]
+				sw      $t0, (SP_NSA_START_DIRECTION)       # remember starting direction
 
-				# DO move-forward: check obstable before moving:
-				# YES:	check if this is the first time state-navigating is set to 1
-				# 			YES to remember begin-rotation direction & set "not rotate"
-				#		check state-rotating
-				#
-				# NO:	move & return
+				# reset trial-direction, to be the same as starting direction
+				lw      $t0, (SP_NSA_START_DIRECTION)
+				sw      $t0, (SP_NSA_TRIAL_DIRECTION)
 
-				# check state-rotating:
-				# 0 (not rotate)   : go to find-next-target
-				# 1 (is rotating)  : check if meet target:
-				#	YES:
-				#		- set state-rotating to 2
-				#		- remember current location
-				#		- set state-navigating to 2
-				#		- move forward
-				#	NO to keep rotating & return
-				# 2 (done rotation): move forward & return
+				# change to state "BACKOFF"
+				la		$t0, nsa_back_off					# set state to BACKOFF
+				sw		$t0, (SP_NSA_STATE)
+				li		$t0, 0x22							# send command "reverse"
+				sb		$t0, (PORT_BOTCTRL)
+				j		ret_next_step
+				nop
 
-				# find next target
-				# - repeat picking next target & check valid:
-				# 	- different from the begin-rotation direction
-				# 	- not the opposite of the begin-rotation direction
-				# FOUND    : set rotating-to-target to 1 & start rotating
-				# NOT FOUND: set navigating to 3 & return
+// ==================================================
+// State: BACK OFF
+// ==================================================
+nsa_back_off:
+                # keep moving reverse until "on" line --> FIND_VALID_DIRECTION
+                jal     check_off_black_line
+                beq     $v0, $0, nsa_back_off_online        # change state to FIND_VALID_DIRECTION if back on black line
+                li      $t0, 0x22                           # send command "reverse" if still off black line
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step
+nsa_back_off_online:
+                la      $t0, nsa_find_valid_direction       # set state to FIND_VALID_DIRECTION
+                sw      $t0, (SP_NSA_STATE)
+                li      $t0, 0x0                            # send command "stop"
+                sb      $t0, (PORT_BOTCTRL)
+				j       ret_next_step
 
+// ==================================================
+// State: FIND VALID DIRECTION
+// ==================================================
+nsa_find_valid_direction:
+                # eventually try all 6 possible directions (except the starting & the opposite direction)
+                lw      $t0, (SP_NSA_TRIAL_DIRECTION)
+                addi    $t0, $t0, 1                         # next trial direction
+                li      $t1, 8                              # wrap back to less than 8
+                rem     $t0, $t0, $t1
 
+                # keep trying until found a valid direction
+
+// ==================================================
+// State: ROTATING
+// ==================================================
+nsa_rotating:
+
+// ==================================================
+// State: VERIFY ANSWER
+// ==================================================
+nsa_verify_answer:
+
+// ==================================================
+// State: STOP
+// ==================================================
+nsa_stop:
+				li		$t0, 0x0							# send command "stop"
+				sb		$t0, (PORT_BOTCTRL)
+
+/*
 				# keep moving forward 10 times
 				lw		$t1, (SP_TEMP_1)
 				li		$t2, 1
@@ -727,6 +772,7 @@ next_step_auto:
 				li		$t0, 0x33
 				sw		$t0, (PORT_BOTCTRL)
 				j		ret_next_step
+*/
 
 next_step_manual:
 				lb 		$25,(SENSOR_REG)
@@ -745,13 +791,31 @@ next_step_manual:
 				beq		$0, $0, ret_next_step
 				nop
 
+#*************************
+# Nexy$5 I/O Functions
+#*************************
 
-# ==============================================================================
-# === reorder_btns() - Rearrange read bits of the push buttons               ===
-# === Registers affected: $25, $21, $4                                       ===
-# === Reorder from xxxU-DLCR --> xxxC-LURD                                   ===
-# === $4: original order, $21: temp reg, $25: target order                   ===
-# ==============================================================================
+#---------------------
+# check_off_black_line() - Check if the robot is off black line
+#
+# Return: $v0 = 1 (off black line) / 0 (on black line)
+#
+# Registers affected: $v0 ($2)
+#---------------------
+check_off_black_line:
+				lb		$v0, (SENSOR_REG)			# read sensor contents
+				and		$v0, $v0, 1					# mask out all bits except [0]
+				jr		$ra
+				nop
+
+#---------------------
+# reorder_btns() - Rearrange read bits of the push buttons
+#
+# Original order is stored in $25
+# Reorder from xxxU-DLCR --> xxxC-LURD
+#
+# Registers affected: $25, $21, $4
+#---------------------
 reorder_btns:
 				add		$25, $0, $0				# init $25 to zero
 
@@ -785,10 +849,6 @@ reorder_btns:
 				add		$4, $25, $0
 				jr		$ra
 				nop
-
-#*************************
-# Nexy$5 I/O Functions
-#*************************
 
 #---------------------
 # DEB_rdbtns() - Reads the debounced pushbuttons
@@ -929,6 +989,21 @@ SP_MVTBAS16:.byte 	0
 SP_RGTC0NT:	.byte 	0
 SP_TEMP: 	.word	0x00
 
+# ====================================================================================================
+# Variables for running the algorithm
+# ====================================================================================================
+
 # Robot mode: 0=manual, 1=auto
-SP_ROBOT_MODE: 	.byte 0
-SP_TEMP_1:		.word 0
+SP_ROBOT_MODE: .byte 0
+
+# Temp word
+SP_TEMP_1: .word 0
+
+# Current state of the robot
+SP_NSA_STATE: .word 0
+
+# Hold the starting direction, before trying any other directions
+SP_NSA_START_DIRECTION: .word 0
+
+# Hold the current trial direction
+SP_NSA_TRIAL_DIRECTION: .word 0
