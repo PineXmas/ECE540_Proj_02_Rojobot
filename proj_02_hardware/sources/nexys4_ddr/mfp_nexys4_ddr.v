@@ -57,13 +57,16 @@ module mfp_nexys4_ddr(
   
   // World map
   wire [13:0] worldmap_addr;
-  wire [1:0]  worldmap_data, worldmap_data_part_1, worldmap_data_lr;
-  reg  [13:0] vid_addr;
-  wire [1:0]  world_pixel, world_pixel_part_1, world_pixel_lr;
+  wire [1:0]  worldmap_data, worldmap_data_part_1, worldmap_data_lr, worldmap_data_loop;
+  wire [13:0] vid_addr;
+  wire [1:0]  world_pixel, world_pixel_part_1, world_pixel_lr, world_pixel_loop;
   
   // VGA
   wire [11:0] pixel_column, pixel_row;
   wire        video_on;
+  
+  // Scaler
+  wire [6:0]  world_row, world_column;
   
   // --------------------------------------------------
   // INSTANCES
@@ -123,9 +126,21 @@ module mfp_nexys4_ddr(
     .doutb(world_pixel_lr)
   );
   
+  // world map loop
+  world_map_loop world_map_loop(
+    .clka(clk_75),
+    .addra(worldmap_addr),
+    .douta(worldmap_data_loop),
+    .clkb(clk_75),
+    .addrb(vid_addr),
+    .doutb(world_pixel_loop)
+  );
+  
   // mux to select map based on the SW
-  assign worldmap_data = debounced_SW[14] ? worldmap_data_lr : worldmap_data_part_1;
-  assign world_pixel   = debounced_SW[14] ? world_pixel_lr   : world_pixel_part_1;
+  assign {worldmap_data, world_pixel} =
+    debounced_SW[14] ? {worldmap_data_lr, world_pixel_lr} : (
+      debounced_SW[13] ? {worldmap_data_loop, world_pixel_loop} : {worldmap_data_part_1, world_pixel_part_1}
+    );
   
   // dtg
   dtg dtg(
@@ -139,11 +154,13 @@ module mfp_nexys4_ddr(
   );
   
   // scaler
-  always @(*) begin
-    // keep as is, for now, scaling later
-    vid_addr[6 :0] = pixel_column >> 2;
-    vid_addr[13:7] = pixel_row >> 2;
-  end
+  vga_scaler_v2 vga_scaler_v2(
+    .world_row(world_row),
+    .world_column(world_column),
+    .pixel_row(pixel_row),
+    .pixel_column(pixel_column),
+    .vid_addr(vid_addr)
+  );
   
   // rojobot ICON
   robot_icon robot_icon(
@@ -154,6 +171,8 @@ module mfp_nexys4_ddr(
     .BotInfo_reg(BotInfo_reg),
     .icon(icon)
   );
+  
+  //*** NOTE: delay the icon signal, for sync with the world_pixel signal, which is 1-cycle late, due to the world-map-ROM
   
   // colorizer
   colorizer colorizer(
@@ -174,6 +193,7 @@ module mfp_nexys4_ddr(
     .swtch_db(debounced_SW)
   );
 
+  //MIPSfpga
   mfp_sys mfp_sys(
           .SI_Reset_N(debounced_PB[5]),
                     .SI_ClkIn(clk_50),
