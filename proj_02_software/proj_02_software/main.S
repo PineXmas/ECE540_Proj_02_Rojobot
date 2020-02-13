@@ -867,18 +867,6 @@ nsa_stop:
 				j       ret_next_step
 				nop
 
-/*
-				# keep moving forward 10 times
-				lw		$t1, (SP_TEMP_1)
-				li		$t2, 1
-				bgt		$t1, $t2, ret_next_step
-				addi	$t1, $t1, 1
-				sw		$t1, (SP_TEMP_1)
-				li		$t0, 0x33
-				sw		$t0, (PORT_BOTCTRL)
-				j		ret_next_step
-*/
-
 next_step_manual:
 				lb 		$25,(SENSOR_REG)
 				lb 		$2,	(SENSOR_REG)

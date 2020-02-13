@@ -257,13 +257,13 @@ END GROUP
  .debug_abbrev  0x000000000000003c       0x14 dummy.o
  .debug_abbrev  0x0000000000000050       0x14 main.o
 
-.debug_line     0x0000000000000000      0x354
+.debug_line     0x0000000000000000      0x352
  *(.debug_line)
  .debug_line    0x0000000000000000       0x48 crt0.o
  .debug_line    0x0000000000000048       0x86 boot.o
  .debug_line    0x00000000000000ce       0x4d exceptions.o
  .debug_line    0x000000000000011b       0x37 dummy.o
- .debug_line    0x0000000000000152      0x202 main.o
+ .debug_line    0x0000000000000152      0x200 main.o
 
 .debug_frame
  *(.debug_frame)

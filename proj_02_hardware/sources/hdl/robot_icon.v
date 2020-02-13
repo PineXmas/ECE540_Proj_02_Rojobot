@@ -7,10 +7,10 @@ module robot_icon #(
     parameter SCALING_FACTOR = 6,
     parameter MARGIN = 128
 )(
-    input [11:0] pixel_row,
-    input [11:0] pixel_column,
-    input [31:0] LocX_reg,
-    input [31:0] LocY_reg,
+    input signed [31:0] pixel_row,
+    input signed [31:0] pixel_column,
+    input signed [31:0] LocX_reg,
+    input signed [31:0] LocY_reg,
     input [7:0] BotInfo_reg,
     output reg [11:0] icon
 );
@@ -22,10 +22,10 @@ module robot_icon #(
   // ==================================================
   
   // robot on screen coordinates mapped back to world coordinates
-  reg [31:0] robot_x, robot_y;
+  reg signed [31:0] robot_x, robot_y;
   
   // robot bounding rectangle in screen coordinates
-  reg [31:0] robot_screen_left, robot_screen_top, robot_screen_right, robot_screen_bottom;
+  reg signed [31:0] robot_screen_left, robot_screen_top, robot_screen_right, robot_screen_bottom;
   
   // ==================================================
   // LOGIC
@@ -53,24 +53,41 @@ module robot_icon #(
     if (  robot_screen_top <= pixel_row 
           && pixel_row <= robot_screen_bottom
     ) begin
-      robot_y = pixel_row-MARGIN - robot_screen_top;
+      robot_y = pixel_row - robot_screen_top;
     end
     
     // determine color
     if (robot_x != SCALING_FACTOR && robot_y != SCALING_FACTOR) begin
-    
+
       // orientation color
       case (BotInfo_reg[2:0])
-        3'h0: icon = robot_y == 0 && (robot_x == 2 || robot_x == 3) ? 12'hF0F : 12'h0F0; 
-        3'h1: icon = robot_y == 0 && robot_x == 5                   ? 12'hF0F : 12'h0F0;
-        3'h2: icon = robot_x == 5 && (robot_y == 2 || robot_y == 3) ? 12'hF0F : 12'h0F0;
-        3'h3: icon = robot_y == 5 && robot_x == 5                   ? 12'hF0F : 12'h0F0;
-        3'h4: icon = robot_y == 5 && (robot_x == 2 || robot_x == 3) ? 12'hF0F : 12'h0F0;
-        3'h5: icon = robot_y == 5 && robot_x == 0                   ? 12'hF0F : 12'h0F0;
-        3'h6: icon = robot_x == 0 && (robot_y == 2 || robot_y == 3) ? 12'hF0F : 12'h0F0;
-        3'h7: icon = robot_y == 0 && robot_x == 0                   ? 12'hF0F : 12'h0F0;
-        default: icon = 12'h0F0;
+        3'h0: icon =    (robot_y == 0 || robot_y == 1 || robot_y == 2)
+                     && (robot_x == 2 || robot_x == 3) 
+                   ? 12'hF0F : 12'h0F0;
+        3'h1: icon =    (robot_y == 0 || robot_y == 1 || robot_y == 2)
+                     && (robot_x == 3 || robot_x == 4 || robot_x == 5) 
+                   ? 12'hF0F : 12'h0F0;
+        3'h2: icon =    (robot_y == 2 || robot_y == 3)
+                     && (robot_x == 3 || robot_x == 4 || robot_x == 5) 
+                   ? 12'hF0F : 12'h0F0;       
+        3'h3: icon =    (robot_y == 3 || robot_y == 4 || robot_y == 5)
+                     && (robot_x == 3 || robot_x == 4 || robot_x == 5) 
+                   ? 12'hF0F : 12'h0F0;
+        3'h4: icon =    (robot_y == 3 || robot_y == 4 || robot_y == 5)
+                     && (robot_x == 2 || robot_x == 3) 
+                   ? 12'hF0F : 12'h0F0;
+        3'h5: icon =    (robot_y == 3 || robot_y == 4 || robot_y == 5)
+                     && (robot_x == 0 || robot_x == 1 || robot_x == 2) 
+                   ? 12'hF0F : 12'h0F0;
+        3'h6: icon =    (robot_y == 2 || robot_y == 3)
+                     && (robot_x == 0 || robot_x == 1 || robot_x == 2) 
+                   ? 12'hF0F : 12'h0F0;
+        3'h7: icon =    (robot_y == 0 || robot_y == 1 || robot_y == 2)
+                     && (robot_x == 0 || robot_x == 1 || robot_x == 2) 
+                   ? 12'hF0F : 12'h0F0;
+        default: icon = 12'h00F;
       endcase
+
     end
     else begin
       icon = 12'h000;
