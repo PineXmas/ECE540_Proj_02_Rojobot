@@ -95,10 +95,10 @@ PORT_SEVENSEG_HGH	= 0xbf700004		# (o) 7 Segment Higher Display
 PORT_SEVENSEG_LOW	= 0xbf700008		# (o) 7 Segment Lower Display
 PORT_SEVENSEG_DP	= 0xbf70000c		# (o) 7 segment Decimal Point Display
 
-PORT_BOTINFO		= 0xbf80000c		# (i) Bot Info port
-PORT_BOTCTRL		= 0xbf800010		# (o) Bot Control port
-PORT_BOTUPDT		= 0xbf800014		# (i) Bot Update port (Poll)
-PORT_INTACK			= 0xbf800018		# (o) Bot Int Ack
+PORT_BOTINFO		= 0xbf60000c		# (i) Bot Info port
+PORT_BOTCTRL		= 0xbf600010		# (o) Bot Control port
+PORT_BOTUPDT		= 0xbf600014		# (i) Bot Update port (Poll)
+PORT_INTACK			= 0xbf600018		# (o) Bot Int Ack
 
 # =====================================
 # === Register bit mappings (masks) ===
@@ -278,84 +278,10 @@ SP_MVMTD 	= 0x1A		# Fast left turn - display lower case L
 SP_MVMTE 	= 0x19		# Slow right turn - display upper case R
 SP_MVMTF 	= 0x1B		# Fast right turn - display lower case R
 
-# Different variables for lookup table, BotInfo register, LOCx_REG, LOCy_REG, Old_Heading register,
-# 7 segment displays, and other variables required. All are byte wides except SP_TEMP which is word
-# wide.
-	.data
-	.align 2    # Put next label on a word boundary
-
-# 7 segment display variables
-SP_DIG0:	.byte   0		
-SP_DIG1:	.byte   0		
-SP_DIG2:	.byte   0		
-SP_DIG3:	.byte   0		
-SP_DIG4:	.byte   0		
-SP_DIG5:	.byte   0		
-SP_DIG6:	.byte   0		
-SP_DIG7:	.byte   0		
-
-#Location x variable
-LOCx_REG:	.byte   0		
-#Location y variable
-LOCy_REG:	.byte   0		
-#Bot sensors variable
-SENSOR_REG:	.byte   0		
-#Botinfo variable
-BOTINF_REG:	.byte   0		
-
-# Intermediate variables can be used for implementing the algorithm
-SP_SEM:		.byte   0
-SP_OLDMVMT:	.byte   0		
-SP_OLDHDG:	.byte   0		
-SP_OLDDP:	.byte   0		
-SP_OLDHDG1:	.byte	0
-SP_RGTCNT:	.byte	0
-SP_LEFTFL:	.byte	0
-SP_OLDX:	.byte	0
-SP_OLDY:	.byte	0
-
-# Buttons lookup table
-SP_BTNBAS1:	.byte 	0
-SP_BTNBAS2:	.byte 	0
-SP_BTNBAS3:	.byte 	0
-SP_BTNBAS4:	.byte 	0
-SP_BTNBAS5:	.byte 	0
-SP_BTNBAS6:	.byte 	0
-SP_BTNBAS7:	.byte 	0
-SP_BTNBAS8:	.byte 	0
-SP_BTNBAS9:	.byte 	0
-SP_BTNBAS10:.byte 	0
-SP_BTNBAS11:.byte 	0
-SP_BTNBAS12:.byte 	0
-SP_BTNBAS13:.byte 	0
-SP_BTNBAS14:.byte 	0
-SP_BTNBAS15:.byte 	0
-SP_BTNBAS16:.byte 	0
-
-# Movement lookup table
-SP_MVTBAS1:	.byte 	0
-SP_MVTBAS2:	.byte 	0
-SP_MVTBAS3:	.byte 	0
-SP_MVTBAS4:	.byte 	0
-SP_MVTBAS5:	.byte 	0
-SP_MVTBAS6:	.byte 	0
-SP_MVTBAS7:	.byte 	0
-SP_MVTBAS8:	.byte 	0
-SP_MVTBAS9:	.byte 	0
-SP_MVTBAS10:.byte 	0
-SP_MVTBAS11:.byte 	0
-SP_MVTBAS12:.byte 	0
-SP_MVTBAS13:.byte 	0
-SP_MVTBAS14:.byte 	0
-SP_MVTBAS15:.byte 	0
-SP_MVTBAS16:.byte 	0
-SP_RGTC0NT:	.byte 	0
-SP_TEMP: 	.word	0x00
-
-
 
 .globl main
 main:
+
    				lui   $12, 0xbf80    			# $12 = address of LEDs (0xbf800000)
 				li	$2,		FALSE				# clear the semaphore
 				jal	LED_wrleds					#
@@ -372,19 +298,32 @@ main:
 				li	$2, FALSE
 				sb $2, SP_RGTC0NT
 
-
+				# reset robot state to RUNNING
+				la	$t0, nsa_running
+				sw	$t0, (SP_NSA_STATE)
 
 # ==================
 # === Main  Loop ===
 # ==================
-												
-main_L0:		li    $13, PORT_BOTUPDT			#	while(25) {  // main loop is an infinite loop
+
+main_L0:
+				# determine robot mode by read switch [15]: OFF=MANUAL, ON=AUTO
+				lw	  	$t0, (PORT_SLSWTCH)
+				not		$t0, $t0				# flip the switches, due to active-low
+				and		$t0, $t0, 0x8000		# mask out all switches except [15]
+				srl		$t0, $t0, 15			# move [15] to position 0
+				sb		$t0, (SP_ROBOT_MODE)
+
+				# polling for the robot interrupt
+				li    $13, PORT_BOTUPDT			#	while(25) {  // main loop is an infinite loop
 				lw 	  $21, 0($13) 				#	while (upd_sysreg == 0)  {}   // loop until isr updates rojobot registers
 				beq	  $21, $0, main_L0
 				nop
+
 				li 	  $13, PORT_INTACK			#   Load the Acknowledgement port address 
 				li 	  $21, INT_ACK				#   Set the Acknowledgement bit 
 				sw 	  $21, 0($13)				# 	Write the Acknowledgement bit
+
 main_L1:
 				li    $13, PORT_BOTINFO			# 	Load the BotInfo port address
 				lw 	  $21, 0($13)				#	Read the BotInfo Register
@@ -416,9 +355,11 @@ main_L2:		jal	wr_alldigits				#	write all of the digits to the display
 				lb	$2,	SENSOR_REG				#	update LEDs with new sensor information
 				jal	LED_wrleds					#
 				nop
+
 				li 	  $13, PORT_INTACK			#	Clear the Acknowledgement bit 
 				li 	  $21, FALSE
 				sw 	  $21, 0($13)
+
 				beq   $0, $0,	next_step		#	tell rojobot what to do next
 				nop
 ret_next_step:
@@ -728,11 +669,206 @@ next_loc:		lb		$25,	(LOCx_REG)			# Dig[3:2] gets X-coordinate
 
 # ==============================================================================
 # === next_step() - Tells rojobot what to do next                            ===
-# === Registers affected: $25, $2                                             ===
+# === Registers affected: $25, $2                                            ===
 # === This version reads the pushbuttons, calculates the new Motor Control   ===
 # === register value and then writes MotCtl so Rojobot knows what to do      ===
 # ==============================================================================
-next_step:		lb 		$25,(SENSOR_REG)
+next_step:
+
+				# determine MANUAL or AUTO mode
+				lb		$t0, (SP_ROBOT_MODE)
+				bne		$t0, $0, next_step_manual
+
+next_step_auto:
+				# load & resume current state
+				lw		$t0, (SP_NSA_STATE)
+				jr		$t0
+				nop
+
+// ==================================================
+// State RUNNING: keep moving forward until "off" line
+// ==================================================
+nsa_running:
+				# keep moving forward until "off" line --> BACKOFF
+				jal		check_off_black_line
+				bne		$v0, $0, nsa_running_to_backoff     # change state to BACKOFF if off line
+				li		$t0, 0x33                           # send command "forward"
+				sb		$t0, (PORT_BOTCTRL)
+				j		ret_next_step
+				nop
+
+nsa_running_to_backoff:
+                # reset for a new navigating-session
+
+                # remember starting direction & opposite direction
+				lb		$t0, (BOTINF_REG)					# t0 = bot info reg
+				and		$t0, $t0, 0x7                       # mask out all bits except orientation [2:0]
+				sw      $t0, (SP_NSA_START_DIRECTION)       # remember starting direction
+				addi    $t0, $t0, 4                         # t0 = opposite = start + 4 (according to orient. code)
+				li      $t1, 8                              # wrap back to less than 8
+                rem     $t0, $t0, $t1
+                sw      $t0, (SP_NSA_OPPOSITE_DIRECTION)    # remember opposite direction
+
+				# reset trial-direction, to be the same as starting direction
+				lw      $t0, (SP_NSA_START_DIRECTION)
+				sw      $t0, (SP_NSA_TRIAL_DIRECTION)
+
+				# change to state "BACKOFF"
+				la		$t0, nsa_back_off					# set state to BACKOFF
+				sw		$t0, (SP_NSA_STATE)
+				li		$t0, 0x22							# send command "reverse"
+				sb		$t0, (PORT_BOTCTRL)
+				j		ret_next_step
+				nop
+
+// ==================================================
+// State BACK OFF: keep moving reverse until "on" line
+// ==================================================
+nsa_back_off:
+
+                # keep moving reverse until robot is on the black line
+                jal     check_off_black_line
+                beq     $v0, $0, nsa_back_off_online        # change state to FIND_VALID_DIRECTION if back on black line
+                li      $t0, 0x22                           # send command "reverse" if still off black line
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step                       # return
+                nop
+
+nsa_back_off_online:
+
+                # robot is now on the black line, change state to FIND_VALID_DIRECTION
+                la      $t0, nsa_find_valid_direction       # set state to FIND_VALID_DIRECTION
+                sw      $t0, (SP_NSA_STATE)
+                li      $t0, 0x0                            # send command "stop"
+                sb      $t0, (PORT_BOTCTRL)
+				j       ret_next_step                       # return
+				nop
+
+// ==================================================
+// State FIND VALID DIRECTION: eventually try all 6 possible directions (except the starting & the opposite direction)
+// ==================================================
+nsa_find_valid_direction:
+
+                # try next direction
+                lw      $t0, (SP_NSA_TRIAL_DIRECTION)       # t0 = current trial direction
+                addi    $t0, $t0, 1                         # t0++ = next trial direction
+                li      $t1, 8                              # wrap back t0 to less than 8
+                rem     $t0, $t0, $t1
+                sw      $t0, (SP_NSA_TRIAL_DIRECTION)       # store the trial direction
+
+                # change state to STOP if no valid direction is found (trial goes back to starting direction)
+                lw      $t1, (SP_NSA_START_DIRECTION)       # t1 = starting direction
+                beq     $t0, $t1, nsa_find_to_stop
+
+                # skip current direction if equal to the opposite direction
+                lw      $t1, (SP_NSA_OPPOSITE_DIRECTION)    # t1 = opposite direction
+                beq     $t0, $t1, nsa_find_valid_direction
+
+                # valid direction found, change state to ROTATING
+                la      $t0, nsa_rotating                   # set state to ROTATING
+                sw      $t0, (SP_NSA_STATE)
+                li      $t0, 0x30                           # send command "right 1x"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step
+                nop
+
+nsa_find_to_stop:
+
+                # direction not found, so change state to STOP
+                li      $t0, 0x0                            # send command "stop"
+                sb      $t0, (PORT_BOTCTRL)
+                la      $t0, nsa_stop                       # set state to STOP
+                sw      $t0, (SP_NSA_STATE)
+                j       ret_next_step
+                nop
+
+// ==================================================
+// State ROTATING: keep rotating right until trial direction is reached
+// ==================================================
+nsa_rotating:
+
+                # get current direction
+                lb      $t0, (BOTINF_REG)                   # t0 = bot info reg
+                and     $t0, $t0, 0x7                       # mask out all bits except [2:0], t0 = current direction
+
+                # change state to VERIFY_ANSWER if trial direction is reached
+                lw      $t1, (SP_NSA_TRIAL_DIRECTION)       # t1 = trial direction
+                beq     $t0, $t1, nsa_rotating_to_verify    # change state to VERIFY_ANSWER if equal
+                li      $t0, 0x30                           # otherwise, keep rotating right by sending command "right 1x"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step
+                nop
+
+nsa_rotating_to_verify:
+
+                # remember current location
+                lb      $t0, (LOCx_REG)                     # t0 = current X
+                sw      $t0, (SP_NSA_LOC_X)                 # store current X
+                lb      $t0, (LOCy_REG)                     # t0 = current Y
+                sw      $t0, (SP_NSA_LOC_Y)                 # store current Y
+
+                # trial direction has been reached, change state to VERIFY_ANSWER
+                li      $t0, 0x0                            # send command "stop"
+                sb      $t0, (PORT_BOTCTRL)
+                la      $t0, nsa_verify_answer              # set state to VERIFY_ANSWER
+                sw      $t0, (SP_NSA_STATE)
+                j       ret_next_step
+                nop
+
+// ==================================================
+// State VERIFY ANSWER: try current direction if still "on" line for verification, otherwise back-off to find another valid direction
+// ==================================================
+nsa_verify_answer:
+
+                # change state to BACKOFF if "off" line
+                jal     check_off_black_line                # get current black-line status
+                beq     $v0, $0, nsa_verify_online          # go to compare position if still "on" line
+                la      $t0, nsa_back_off                   # set state to BACKOFF
+                sw      $t0, (SP_NSA_STATE)
+                li      $t0, 0x22                           # send command "reverse"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step                       # return
+                nop
+
+nsa_verify_online:
+
+                # change to state RUNNING if different in X
+                lb      $t0, (LOCx_REG)                     # t0 = current X
+                lw      $t1, (SP_NSA_LOC_X)                 # t1 = start X
+                bne     $t0, $t1, nsa_verify_to_running     # change to state RUNNING if different X
+
+                # change to state RUNNING if different in Y
+                lb      $t0, (LOCy_REG)                     # t0 = current Y
+                lw      $t1, (SP_NSA_LOC_Y)                 # t1 = start Y
+                bne     $t0, $t1, nsa_verify_to_running     # change to state RUNNING if different Y
+
+                # keep moving forward
+                li      $t0, 0x33                           # send command "forward"
+                sb      $t0, (PORT_BOTCTRL)
+                j       ret_next_step                       # return
+                nop
+
+nsa_verify_to_running:
+
+                # a correct answer has been found, change state to RUNNING
+                li      $t0, 0x33                           # send command "forward"
+                sb      $t0, (PORT_BOTCTRL)
+                la      $t0, nsa_running                    # set state to RUNNING
+                sw      $t0, (SP_NSA_STATE)
+                j       ret_next_step                       # return
+                nop
+
+// ==================================================
+// State STOP: stop if there is no valid direction to try
+// ==================================================
+nsa_stop:
+				li		$t0, 0x0							# send command "stop"
+				sb		$t0, (PORT_BOTCTRL)
+				j       ret_next_step
+				nop
+
+next_step_manual:
+				lb 		$25,(SENSOR_REG)
 				lb 		$2,	(SENSOR_REG)
 				lb 		$3,	(SENSOR_REG)
 				AND 	$25,	$25,MSKPROXL
@@ -748,10 +884,64 @@ next_step:		lb 		$25,(SENSOR_REG)
 				beq		$0, $0, ret_next_step
 				nop
 
-
 #*************************
 # Nexy$5 I/O Functions
 #*************************
+
+#---------------------
+# check_off_black_line() - Check if the robot is off black line
+#
+# Return: $v0 = 1 (off black line) / 0 (on black line)
+#
+# Registers affected: $v0 ($2)
+#---------------------
+check_off_black_line:
+				lb		$v0, (SENSOR_REG)			# read sensor contents
+				and		$v0, $v0, 1					# mask out all bits except [0]
+				jr		$ra
+				nop
+
+#---------------------
+# reorder_btns() - Rearrange read bits of the push buttons
+#
+# Original order is stored in $25
+# Reorder from xxxU-DLCR --> xxxC-LURD
+#
+# Registers affected: $25, $21, $4
+#---------------------
+reorder_btns:
+				add		$25, $0, $0				# init $25 to zero
+
+				# set D to bit[0]
+				srl		$21, $4, 3				# move D to bit 0 by shift right 3 positions
+				and		$21, $21, 0x00000001	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFFE	# clear the target bit
+				or		$25, $25, $21			# assign bit[0] from $21 to $25, w/o changing the other bits
+
+				# set R to bit[1]
+				sll		$21, $4, 1				# move R to bit 1 by shift left 1 position
+				and		$21, $21, 0x00000002	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFFD	# clear the target bit
+				or		$25, $25, $21			# assign bit[1] from $21 to $25, w/o changing the other bits
+
+				# set U to bit[2]
+				srl		$21, $4, 2				# move U to bit 2 by shift right 2 positions
+				and		$21, $21, 0x00000004	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFFB	# clear the target bit
+				or		$25, $25, $21			# assign bit[2] from $21 to $25, w/o changing the other bits
+
+				# set L to bit[3]
+				sll		$21, $4, 1				# move L to bit 3 by shift left 1 position
+				and		$21, $21, 0x00000008	# mask out the unused bits
+				and		$25, $25, 0xFFFFFFF7	# clear the target bit
+				or		$25, $25, $21			# assign bit[3] from $21 to $25, w/o changing the other bits
+
+				# set C to bit [4]..., but we don't need it after all, so skip!
+
+				# assign result to $4 and return
+				add		$4, $25, $0
+				jr		$ra
+				nop
 
 #---------------------
 # DEB_rdbtns() - Reads the debounced pushbuttons
@@ -759,16 +949,25 @@ next_step:		lb 		$25,(SENSOR_REG)
 # Returns the 5 pushbuttons. The buttons are returned as follows
 # (assuming the inputs to the I/O interface matches this order)
 # example:
-#    bit  7    6      5        4        3        2        25         0
+#    bit  7    6      5        4        3        2         1         0
 #         r    r   	  r    btn_cntr  btn_left  btn_up  btn_right  btn_down
 #
-# where r = reserved. A value of 25 indicates that the button is pressed.
+# where r = reserved. A value of 1 indicates that the button is pressed.
 # A 0 indicates that the button is not pressed.
 #
 # Registers used $25
 #---------------------
 DEB_rdbtns:		li		$25,		PORT_PBTNS			# read the buttons
 				lw		$4, 	0($25)
+
+				# reorder the button positions, according to the Nexys4 DDR
+				addi	$sp, $sp, -4				# push ra to stack
+				sw		$ra, 0($sp)
+				jal		reorder_btns				# call function
+				nop
+				lw		$ra, 0($sp)					# pop ra from stack
+				addi	$sp, $sp, 4
+
 				and		$4, $4,	MSK_ALLBTNS			# mask out unused bits
 				jr 	$ra								# and return
 				nop
@@ -809,6 +1008,100 @@ SS_wrdpts:		lb		$25,	SP_OLDDP				# Copy the decimal points to $25 to leave $2 un
 				jr    $ra
 				nop
 
+# Different variables for lookup table, BotInfo register, LOCx_REG, LOCy_REG, Old_Heading register,
+# 7 segment displays, and other variables required. All are byte wides except SP_TEMP which is word
+# wide.
+.data
+.align 2    # Put next label on a word boundary
 
+# 7 segment display variables
+SP_DIG0:	.byte   0
+SP_DIG1:	.byte   0
+SP_DIG2:	.byte   0
+SP_DIG3:	.byte   0
+SP_DIG4:	.byte   0
+SP_DIG5:	.byte   0
+SP_DIG6:	.byte   0
+SP_DIG7:	.byte   0
 
+#Location x variable
+LOCx_REG:	.byte   0
+#Location y variable
+LOCy_REG:	.byte   0
+#Bot sensors variable
+SENSOR_REG:	.byte   0
+#Botinfo variable
+BOTINF_REG:	.byte   0
 
+# Intermediate variables can be used for implementing the algorithm
+SP_SEM:		.byte   0
+SP_OLDMVMT:	.byte   0
+SP_OLDHDG:	.byte   0
+SP_OLDDP:	.byte   0
+SP_OLDHDG1:	.byte	0
+SP_RGTCNT:	.byte	0
+SP_LEFTFL:	.byte	0
+SP_OLDX:	.byte	0
+SP_OLDY:	.byte	0
+
+# Buttons lookup table
+SP_BTNBAS1:	.byte 	0
+SP_BTNBAS2:	.byte 	0
+SP_BTNBAS3:	.byte 	0
+SP_BTNBAS4:	.byte 	0
+SP_BTNBAS5:	.byte 	0
+SP_BTNBAS6:	.byte 	0
+SP_BTNBAS7:	.byte 	0
+SP_BTNBAS8:	.byte 	0
+SP_BTNBAS9:	.byte 	0
+SP_BTNBAS10:.byte 	0
+SP_BTNBAS11:.byte 	0
+SP_BTNBAS12:.byte 	0
+SP_BTNBAS13:.byte 	0
+SP_BTNBAS14:.byte 	0
+SP_BTNBAS15:.byte 	0
+SP_BTNBAS16:.byte 	0
+
+# Movement lookup table
+SP_MVTBAS1:	.byte 	0
+SP_MVTBAS2:	.byte 	0
+SP_MVTBAS3:	.byte 	0
+SP_MVTBAS4:	.byte 	0
+SP_MVTBAS5:	.byte 	0
+SP_MVTBAS6:	.byte 	0
+SP_MVTBAS7:	.byte 	0
+SP_MVTBAS8:	.byte 	0
+SP_MVTBAS9:	.byte 	0
+SP_MVTBAS10:.byte 	0
+SP_MVTBAS11:.byte 	0
+SP_MVTBAS12:.byte 	0
+SP_MVTBAS13:.byte 	0
+SP_MVTBAS14:.byte 	0
+SP_MVTBAS15:.byte 	0
+SP_MVTBAS16:.byte 	0
+SP_RGTC0NT:	.byte 	0
+SP_TEMP: 	.word	0x00
+
+# ====================================================================================================
+# Variables for running the algorithm
+# ====================================================================================================
+
+# Robot mode: 0=manual, 1=auto
+SP_ROBOT_MODE: .byte 0
+
+# Temp word
+SP_TEMP_1: .word 0
+
+# Current state of the robot
+SP_NSA_STATE: .word 0
+
+# Hold the starting direction & the opposite of it, before trying any other directions
+SP_NSA_START_DIRECTION: .word 0
+SP_NSA_OPPOSITE_DIRECTION: .word 0
+
+# Hold the current trial direction
+SP_NSA_TRIAL_DIRECTION: .word 0
+
+# Hold current position, before doing a navigating session
+SP_NSA_LOC_X: .word 0
+SP_NSA_LOC_Y: .word 0

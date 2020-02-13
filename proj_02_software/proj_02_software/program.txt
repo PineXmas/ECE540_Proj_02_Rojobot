@@ -1336,7 +1336,7 @@ Disassembly of section .debug_line:
  144:	02000205 	0x2000205
  148:	3a038000 	xori	v1,s0,0x8000
  14c:	00040201 	0x40201
- 150:	01fe0101 	0x1fe0101
+ 150:	01fc0101 	0x1fc0101
  154:	00020000 	sll	zero,v0,0x0
  158:	0000001d 	0x1d
  15c:	0efb0101 	jal	bec0404 <MSKLOCy+0xaed0404>
@@ -1348,7 +1348,7 @@ Disassembly of section .debug_line:
  174:	00000000 	nop
  178:	02050000 	0x2050000
  17c:	80000204 	lb	zero,516(zero)
- 180:	01029c03 	0x1029c03
+ 180:	0102a303 	0x102a303
  184:	834b134b 	lb	t3,4939(k0)
  188:	83834b83 	lb	v1,19331(gp)
  18c:	83138313 	lb	s3,-31981(t8)
@@ -1445,26 +1445,27 @@ Disassembly of section .debug_line:
  2f8:	4b4b8583 	c2	0x14b8583
  2fc:	834b874b 	lb	t3,-30901(k0)
  300:	50838383 	beql	a0,v1,fffe1110 <MSKLOCx+0xfe1110>
- 304:	03834b4b 	0x3834b4b
- 308:	83834a0f 	lb	v1,18959(gp)
- 30c:	144b4b83 	bne	v0,t3,1311c <MSKSENSOR+0x321c>
- 310:	4b831383 	c2	0x1831383
- 314:	03831383 	0x3831383
- 318:	13834a0e 	beq	gp,v1,12b54 <MSKSENSOR+0x2c54>
- 31c:	4a0b0383 	c2	0xb0383
- 320:	834b4b4d 	lb	t3,19277(k0)
- 324:	834b4b4d 	lb	t3,19277(k0)
- 328:	834b4b4d 	lb	t3,19277(k0)
- 32c:	834b4b4d 	lb	t3,19277(k0)
- 330:	0383134f 	0x383134f
- 334:	4d834a10 	0x4d834a10
- 338:	4b834b4b 	c2	0x1834b4b
- 33c:	83134c4b 	lb	s3,19531(t8)
- 340:	4b4a0a03 	c2	0x14a0a03
- 344:	83134b4b 	lb	s3,19275(t8)
- 348:	834a1103 	lb	t2,4355(k0)
- 34c:	02831383 	0x2831383
- 350:	01010004 	sllv	zero,at,t0
+ 304:	4d834b4b 	0x4d834b4b
+ 308:	4b838383 	c2	0x1838383
+ 30c:	1383144b 	beq	gp,v1,543c <MSKBOTINFO+0x533d>
+ 310:	13834b83 	beq	gp,v1,13120 <MSKSENSOR+0x3220>
+ 314:	4a0e0383 	c2	0xe0383
+ 318:	03831383 	0x3831383
+ 31c:	4b4d4a0b 	c2	0x14d4a0b
+ 320:	4b4d834b 	c2	0x14d834b
+ 324:	4b4d834b 	c2	0x14d834b
+ 328:	4b4d834b 	c2	0x14d834b
+ 32c:	134f834b 	beq	k0,t7,fffe105c <MSKLOCx+0xfe105c>
+ 330:	4a100383 	c2	0x100383
+ 334:	4b4b4d83 	c2	0x14b4d83
+ 338:	4c4b4b83 	0x4c4b4b83
+ 33c:	0a038313 	j	80e0c4c <MSKLOCy+0x70f0c4c>
+ 340:	4b4b4b4a 	c2	0x14b4b4a
+ 344:	11038313 	beq	t0,v1,fffe0f94 <MSKLOCx+0xfe0f94>
+ 348:	1383834a 	beq	gp,v1,fffe1074 <MSKLOCx+0xfe1074>
+ 34c:	00040283 	sra	zero,a0,0xa
+ 350:	Address 0x0000000000000350 is out of bounds.
+
 
 Disassembly of section .pdr:
 

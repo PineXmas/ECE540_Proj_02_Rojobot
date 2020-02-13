@@ -163,7 +163,18 @@ module mfp_nexys4_ddr(
   );
   
   // rojobot ICON
-  robot_icon robot_icon(
+//  robot_icon robot_icon(
+//    .pixel_row(pixel_row),
+//    .pixel_column(pixel_column),
+//    .LocX_reg(LocX_reg),
+//    .LocY_reg(LocY_reg),
+//    .BotInfo_reg(BotInfo_reg),
+//    .icon(icon)
+//  );
+  
+  robot_icon_v2 robot_icon_v2(
+    .clk(clk_75),
+    .reset(~(debounced_PB[5])),
     .pixel_row(pixel_row),
     .pixel_column(pixel_column),
     .LocX_reg(LocX_reg),

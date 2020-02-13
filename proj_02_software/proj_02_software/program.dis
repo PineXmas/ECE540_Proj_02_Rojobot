@@ -609,676 +609,676 @@ N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/dummy.S:59
 80000200:	00000000 	nop
 
 80000204 <main>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:285
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:292
 80000204:	3c0cbf80 	lui	t4,0xbf80
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:287
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:294
 80000208:	0c0002ba 	jal	80000ae8 <LED_wrleds>
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:288
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:295
 8000020c:	24020000 	li	v0,0
 80000210:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:289
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:296
 80000214:	3c018000 	lui	at,0x8000
 80000218:	a0220b4c 	sb	v0,2892(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:290
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:297
 8000021c:	240200cb 	li	v0,203
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:291
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:298
 80000220:	3c018000 	lui	at,0x8000
 80000224:	a0220b4f 	sb	v0,2895(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:292
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:299
 80000228:	0c0000e2 	jal	80000388 <init_btnluptbl>
 8000022c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:294
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:301
 80000230:	0c00011d 	jal	80000474 <init_mvmttbl>
 80000234:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:296
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:303
 80000238:	0c0002c0 	jal	80000b00 <SS_wrdpts>
 8000023c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:297
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:304
 80000240:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:298
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:305
 80000244:	24020000 	li	v0,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:299
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:306
 80000248:	3c018000 	lui	at,0x8000
 8000024c:	a0220b75 	sb	v0,2933(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:302
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:309
 80000250:	3c088000 	lui	t0,0x8000
 80000254:	2508074c 	addiu	t0,t0,1868
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:303
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:310
 80000258:	3c018000 	lui	at,0x8000
 8000025c:	ac280b84 	sw	t0,2948(at)
 
 80000260 <main_L0>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:311
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:318
 80000260:	3c08bf80 	lui	t0,0xbf80
 80000264:	8d080004 	lw	t0,4(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:313
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:320
 80000268:	01004027 	nor	t0,t0,zero
 8000026c:	31088000 	andi	t0,t0,0x8000
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:314
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:321
 80000270:	000843c2 	srl	t0,t0,0xf
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:315
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:322
 80000274:	3c018000 	lui	at,0x8000
 80000278:	a0280b7c 	sb	t0,2940(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:318
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:325
 8000027c:	3c0dbf60 	lui	t5,0xbf60
 80000280:	35ad0014 	ori	t5,t5,0x14
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:320
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:327
 80000284:	8db50000 	lw	s5,0(t5)
 80000288:	12a0fff5 	beqz	s5,80000260 <main_L0>
 8000028c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:321
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:328
 80000290:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:323
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:330
 80000294:	3c0dbf60 	lui	t5,0xbf60
 80000298:	35ad0018 	ori	t5,t5,0x18
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:324
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:331
 8000029c:	24150001 	li	s5,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:325
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:332
 800002a0:	adb50000 	sw	s5,0(t5)
 
 800002a4 <main_L1>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:328
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:335
 800002a4:	3c0dbf60 	lui	t5,0xbf60
 800002a8:	35ad000c 	ori	t5,t5,0xc
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:329
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:336
 800002ac:	8db50000 	lw	s5,0(t5)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:331
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:338
 800002b0:	32b600ff 	andi	s6,s5,0xff
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:332
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:339
 800002b4:	3c018000 	lui	at,0x8000
 800002b8:	a0360b4b 	sb	s6,2891(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:334
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:341
 800002bc:	0015aa02 	srl	s5,s5,0x8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:335
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:342
 800002c0:	32b600ff 	andi	s6,s5,0xff
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:336
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:343
 800002c4:	3c018000 	lui	at,0x8000
 800002c8:	a0360b4a 	sb	s6,2890(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:338
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:345
 800002cc:	0015aa02 	srl	s5,s5,0x8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:339
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:346
 800002d0:	32b600ff 	andi	s6,s5,0xff
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:340
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:347
 800002d4:	3c018000 	lui	at,0x8000
 800002d8:	a0360b49 	sb	s6,2889(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:342
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:349
 800002dc:	0015aa02 	srl	s5,s5,0x8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:343
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:350
 800002e0:	32b600ff 	andi	s6,s5,0xff
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:344
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:351
 800002e4:	3c018000 	lui	at,0x8000
 800002e8:	a0360b48 	sb	s6,2888(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:346
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:353
 800002ec:	0c0001b3 	jal	800006cc <next_loc>
 800002f0:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:348
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:355
 800002f4:	0c000158 	jal	80000560 <next_mvmt>
 800002f8:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:350
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:357
 800002fc:	0c000164 	jal	80000590 <next_hdg>
 80000300:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:353
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:360
 80000304:	00000000 	nop
 
 80000308 <main_L2>:
 80000308:	0c0000d3 	jal	8000034c <wr_alldigits>
 8000030c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:354
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:361
 80000310:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:355
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:362
 80000314:	3c028000 	lui	v0,0x8000
 80000318:	80420b4a 	lb	v0,2890(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:356
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:363
 8000031c:	0c0002ba 	jal	80000ae8 <LED_wrleds>
 80000320:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:357
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:364
 80000324:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:359
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:366
 80000328:	3c0dbf60 	lui	t5,0xbf60
 8000032c:	35ad0018 	ori	t5,t5,0x18
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:360
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:367
 80000330:	24150000 	li	s5,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:363
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:370
 80000334:	100000fc 	b	80000728 <next_step>
 80000338:	adb50000 	sw	s5,0(t5)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:364
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:371
 8000033c:	00000000 	nop
 
 80000340 <ret_next_step>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:367
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:374
 80000340:	1000ffc7 	b	80000260 <main_L0>
 80000344:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:368
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:375
 80000348:	00000000 	nop
 
 8000034c <wr_alldigits>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:384
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:391
 8000034c:	3c198000 	lui	t9,0x8000
 80000350:	8f390b40 	lw	t9,2880(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:385
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:392
 80000354:	3c02bf70 	lui	v0,0xbf70
 80000358:	34420008 	ori	v0,v0,0x8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:386
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:393
 8000035c:	ac590000 	sw	t9,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:387
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:394
 80000360:	3c198000 	lui	t9,0x8000
 80000364:	8f390b44 	lw	t9,2884(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:388
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:395
 80000368:	3c02bf70 	lui	v0,0xbf70
 8000036c:	34420004 	ori	v0,v0,0x4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:389
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:396
 80000370:	ac590000 	sw	t9,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:390
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:397
 80000374:	24190000 	li	t9,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:391
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:398
 80000378:	3c02bf70 	lui	v0,0xbf70
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:393
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:400
 8000037c:	03e00008 	jr	ra
 80000380:	ac590000 	sw	t9,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:394
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:401
 80000384:	00000000 	nop
 
 80000388 <init_btnluptbl>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:405
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:412
 80000388:	3c028000 	lui	v0,0x8000
 8000038c:	24420b55 	addiu	v0,v0,2901
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:406
-80000390:	24030000 	li	v1,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:407
-80000394:	a0430000 	sb	v1,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:408
-80000398:	20420001 	addi	v0,v0,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:409
-8000039c:	24030002 	li	v1,2
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:410
-800003a0:	a0430000 	sb	v1,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:411
-800003a4:	20420001 	addi	v0,v0,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:412
-800003a8:	24030003 	li	v1,3
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:413
-800003ac:	a0430000 	sb	v1,0(v0)
+80000390:	24030000 	li	v1,0
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:414
-800003b0:	20420001 	addi	v0,v0,1
+80000394:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:415
-800003b4:	24030000 	li	v1,0
+80000398:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:416
-800003b8:	a0430000 	sb	v1,0(v0)
+8000039c:	24030002 	li	v1,2
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:417
-800003bc:	20420001 	addi	v0,v0,1
+800003a0:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:418
-800003c0:	24030020 	li	v1,32
+800003a4:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:419
-800003c4:	a0430000 	sb	v1,0(v0)
+800003a8:	24030003 	li	v1,3
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:420
-800003c8:	20420001 	addi	v0,v0,1
+800003ac:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:421
-800003cc:	24030022 	li	v1,34
+800003b0:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:422
-800003d0:	a0430000 	sb	v1,0(v0)
+800003b4:	24030000 	li	v1,0
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:423
-800003d4:	20420001 	addi	v0,v0,1
+800003b8:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:424
-800003d8:	24030023 	li	v1,35
+800003bc:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:425
-800003dc:	a0430000 	sb	v1,0(v0)
+800003c0:	24030020 	li	v1,32
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:426
-800003e0:	20420001 	addi	v0,v0,1
+800003c4:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:427
-800003e4:	24030020 	li	v1,32
+800003c8:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:428
-800003e8:	a0430000 	sb	v1,0(v0)
+800003cc:	24030022 	li	v1,34
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:429
-800003ec:	20420001 	addi	v0,v0,1
+800003d0:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:430
-800003f0:	24030030 	li	v1,48
+800003d4:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:431
-800003f4:	a0430000 	sb	v1,0(v0)
+800003d8:	24030023 	li	v1,35
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:432
-800003f8:	20420001 	addi	v0,v0,1
+800003dc:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:433
-800003fc:	24030032 	li	v1,50
+800003e0:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:434
-80000400:	a0430000 	sb	v1,0(v0)
+800003e4:	24030020 	li	v1,32
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:435
-80000404:	20420001 	addi	v0,v0,1
+800003e8:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:436
-80000408:	24030033 	li	v1,51
+800003ec:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:437
-8000040c:	a0430000 	sb	v1,0(v0)
+800003f0:	24030030 	li	v1,48
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:438
-80000410:	20420001 	addi	v0,v0,1
+800003f4:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:439
-80000414:	24030030 	li	v1,48
+800003f8:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:440
-80000418:	a0430000 	sb	v1,0(v0)
+800003fc:	24030032 	li	v1,50
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:441
-8000041c:	20420001 	addi	v0,v0,1
+80000400:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:442
-80000420:	24030000 	li	v1,0
+80000404:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:443
-80000424:	a0430000 	sb	v1,0(v0)
+80000408:	24030033 	li	v1,51
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:444
-80000428:	20420001 	addi	v0,v0,1
+8000040c:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:445
-8000042c:	24030002 	li	v1,2
+80000410:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:446
-80000430:	a0430000 	sb	v1,0(v0)
+80000414:	24030030 	li	v1,48
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:447
-80000434:	20420001 	addi	v0,v0,1
+80000418:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:448
-80000438:	24030003 	li	v1,3
+8000041c:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:449
-8000043c:	a0430000 	sb	v1,0(v0)
+80000420:	24030000 	li	v1,0
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:450
-80000440:	20420001 	addi	v0,v0,1
+80000424:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:451
-80000444:	24030000 	li	v1,0
+80000428:	20420001 	addi	v0,v0,1
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:452
+8000042c:	24030002 	li	v1,2
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:453
+80000430:	a0430000 	sb	v1,0(v0)
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:454
+80000434:	20420001 	addi	v0,v0,1
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:455
+80000438:	24030003 	li	v1,3
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:456
+8000043c:	a0430000 	sb	v1,0(v0)
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:457
+80000440:	20420001 	addi	v0,v0,1
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:458
+80000444:	24030000 	li	v1,0
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:460
 80000448:	03e00008 	jr	ra
 8000044c:	a0430000 	sb	v1,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:454
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:461
 80000450:	00000000 	nop
 
 80000454 <btn2mot>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:464
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:471
 80000454:	3c038000 	lui	v1,0x8000
 80000458:	24630b55 	addiu	v1,v1,2901
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:465
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:472
 8000045c:	20820000 	addi	v0,a0,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:466
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:473
 80000460:	3042000f 	andi	v0,v0,0xf
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:467
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:474
 80000464:	00621820 	add	v1,v1,v0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:469
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:476
 80000468:	03e00008 	jr	ra
 8000046c:	80620000 	lb	v0,0(v1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:470
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:477
 80000470:	00000000 	nop
 
 80000474 <init_mvmttbl>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:477
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:484
 80000474:	3c028000 	lui	v0,0x8000
 80000478:	24420b65 	addiu	v0,v0,2917
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:478
-8000047c:	24030017 	li	v1,23
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:479
-80000480:	a0430000 	sb	v1,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:480
-80000484:	20420001 	addi	v0,v0,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:481
-80000488:	2403001c 	li	v1,28
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:482
-8000048c:	a0430000 	sb	v1,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:483
-80000490:	20420001 	addi	v0,v0,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:484
-80000494:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:485
-80000498:	a0430000 	sb	v1,0(v0)
+8000047c:	24030017 	li	v1,23
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:486
-8000049c:	20420001 	addi	v0,v0,1
+80000480:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:487
-800004a0:	2403001c 	li	v1,28
+80000484:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:488
-800004a4:	a0430000 	sb	v1,0(v0)
+80000488:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:489
-800004a8:	20420001 	addi	v0,v0,1
+8000048c:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:490
-800004ac:	2403000f 	li	v1,15
+80000490:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:491
-800004b0:	a0430000 	sb	v1,0(v0)
+80000494:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:492
-800004b4:	20420001 	addi	v0,v0,1
+80000498:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:493
-800004b8:	2403001c 	li	v1,28
+8000049c:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:494
-800004bc:	a0430000 	sb	v1,0(v0)
+800004a0:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:495
-800004c0:	20420001 	addi	v0,v0,1
+800004a4:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:496
-800004c4:	2403001c 	li	v1,28
+800004a8:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:497
-800004c8:	a0430000 	sb	v1,0(v0)
+800004ac:	2403000f 	li	v1,15
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:498
-800004cc:	20420001 	addi	v0,v0,1
+800004b0:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:499
-800004d0:	2403001c 	li	v1,28
+800004b4:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:500
-800004d4:	a0430000 	sb	v1,0(v0)
+800004b8:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:501
-800004d8:	20420001 	addi	v0,v0,1
+800004bc:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:502
-800004dc:	2403000b 	li	v1,11
+800004c0:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:503
-800004e0:	a0430000 	sb	v1,0(v0)
+800004c4:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:504
-800004e4:	20420001 	addi	v0,v0,1
+800004c8:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:505
-800004e8:	2403001c 	li	v1,28
+800004cc:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:506
-800004ec:	a0430000 	sb	v1,0(v0)
+800004d0:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:507
-800004f0:	20420001 	addi	v0,v0,1
+800004d4:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:508
-800004f4:	2403001c 	li	v1,28
+800004d8:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:509
-800004f8:	a0430000 	sb	v1,0(v0)
+800004dc:	2403000b 	li	v1,11
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:510
-800004fc:	20420001 	addi	v0,v0,1
+800004e0:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:511
-80000500:	2403001c 	li	v1,28
+800004e4:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:512
-80000504:	a0430000 	sb	v1,0(v0)
+800004e8:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:513
-80000508:	20420001 	addi	v0,v0,1
+800004ec:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:514
-8000050c:	24030018 	li	v1,24
+800004f0:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:515
-80000510:	a0430000 	sb	v1,0(v0)
+800004f4:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:516
-80000514:	20420001 	addi	v0,v0,1
+800004f8:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:517
-80000518:	2403001a 	li	v1,26
+800004fc:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:518
-8000051c:	a0430000 	sb	v1,0(v0)
+80000500:	2403001c 	li	v1,28
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:519
-80000520:	20420001 	addi	v0,v0,1
+80000504:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:520
-80000524:	24030019 	li	v1,25
+80000508:	20420001 	addi	v0,v0,1
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:521
-80000528:	a0430000 	sb	v1,0(v0)
+8000050c:	24030018 	li	v1,24
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:522
-8000052c:	20420001 	addi	v0,v0,1
+80000510:	a0430000 	sb	v1,0(v0)
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:523
-80000530:	2403001b 	li	v1,27
+80000514:	20420001 	addi	v0,v0,1
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:524
+80000518:	2403001a 	li	v1,26
 N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:525
+8000051c:	a0430000 	sb	v1,0(v0)
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:526
+80000520:	20420001 	addi	v0,v0,1
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:527
+80000524:	24030019 	li	v1,25
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:528
+80000528:	a0430000 	sb	v1,0(v0)
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:529
+8000052c:	20420001 	addi	v0,v0,1
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:530
+80000530:	2403001b 	li	v1,27
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:532
 80000534:	03e00008 	jr	ra
 80000538:	a0430000 	sb	v1,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:526
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:533
 8000053c:	00000000 	nop
 
 80000540 <mvmt2cc>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:536
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:543
 80000540:	3c038000 	lui	v1,0x8000
 80000544:	24630b65 	addiu	v1,v1,2917
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:537
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:544
 80000548:	23220000 	addi	v0,t9,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:538
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:545
 8000054c:	3042000f 	andi	v0,v0,0xf
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:539
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:546
 80000550:	00621820 	add	v1,v1,v0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:541
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:548
 80000554:	10000009 	b	8000057c <back_mvmt2cc>
 80000558:	80620000 	lb	v0,0(v1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:542
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:549
 8000055c:	00000000 	nop
 
 80000560 <next_mvmt>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:554
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:561
 80000560:	3c198000 	lui	t9,0x8000
 80000564:	83390b4b 	lb	t9,2891(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:555
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:562
 80000568:	3c018000 	lui	at,0x8000
 8000056c:	a0390b4d 	sb	t9,2893(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:557
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:564
 80000570:	1000fff3 	b	80000540 <mvmt2cc>
 80000574:	0019c902 	srl	t9,t9,0x4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:558
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:565
 80000578:	00000000 	nop
 
 8000057c <back_mvmt2cc>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:560
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:567
 8000057c:	3c018000 	lui	at,0x8000
 80000580:	a0220b44 	sb	v0,2884(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:561
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:568
 80000584:	03e00008 	jr	ra
 80000588:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:562
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:569
 8000058c:	00000000 	nop
 
 80000590 <next_hdg>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:570
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:577
 80000590:	3c198000 	lui	t9,0x8000
 80000594:	83390b4b 	lb	t9,2891(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:571
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:578
 80000598:	33390007 	andi	t9,t9,0x7
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:572
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:579
 8000059c:	3c018000 	lui	at,0x8000
 800005a0:	a0390b4e 	sb	t9,2894(at)
 
 800005a4 <nh_caseORN>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:574
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:581
 800005a4:	17200007 	bnez	t9,800005c4 <nh_caseORNE>
 800005a8:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:575
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:582
 800005ac:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:576
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:583
 800005b0:	24050000 	li	a1,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:577
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:584
 800005b4:	24060000 	li	a2,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:579
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:586
 800005b8:	1000003b 	b	800006a8 <nh_endcase>
 800005bc:	24070000 	li	a3,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:580
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:587
 800005c0:	00000000 	nop
 
 800005c4 <nh_caseORNE>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:582
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:589
 800005c4:	24010001 	li	at,1
 800005c8:	17210007 	bne	t9,at,800005e8 <nh_caseORE>
 800005cc:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:583
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:590
 800005d0:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:584
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:591
 800005d4:	24050000 	li	a1,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:585
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:592
 800005d8:	24060004 	li	a2,4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:587
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:594
 800005dc:	10000032 	b	800006a8 <nh_endcase>
 800005e0:	24070005 	li	a3,5
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:588
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:595
 800005e4:	00000000 	nop
 
 800005e8 <nh_caseORE>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:590
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:597
 800005e8:	24010002 	li	at,2
 800005ec:	17210007 	bne	t9,at,8000060c <nh_caseORSE>
 800005f0:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:591
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:598
 800005f4:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:592
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:599
 800005f8:	24050000 	li	a1,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:593
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:600
 800005fc:	24060009 	li	a2,9
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:595
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:602
 80000600:	10000029 	b	800006a8 <nh_endcase>
 80000604:	24070000 	li	a3,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:596
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:603
 80000608:	00000000 	nop
 
 8000060c <nh_caseORSE>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:598
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:605
 8000060c:	24010003 	li	at,3
 80000610:	17210007 	bne	t9,at,80000630 <nh_caseORS>
 80000614:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:599
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:606
 80000618:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:600
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:607
 8000061c:	24050001 	li	a1,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:601
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:608
 80000620:	24060003 	li	a2,3
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:603
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:610
 80000624:	10000020 	b	800006a8 <nh_endcase>
 80000628:	24070005 	li	a3,5
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:604
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:611
 8000062c:	00000000 	nop
 
 80000630 <nh_caseORS>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:606
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:613
 80000630:	24010004 	li	at,4
 80000634:	17210007 	bne	t9,at,80000654 <nh_caseORSW>
 80000638:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:607
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:614
 8000063c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:608
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:615
 80000640:	24050001 	li	a1,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:609
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:616
 80000644:	24060008 	li	a2,8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:611
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:618
 80000648:	10000017 	b	800006a8 <nh_endcase>
 8000064c:	24070000 	li	a3,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:612
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:619
 80000650:	00000000 	nop
 
 80000654 <nh_caseORSW>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:614
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:621
 80000654:	24010005 	li	at,5
 80000658:	17210007 	bne	t9,at,80000678 <nh_caseORW>
 8000065c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:615
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:622
 80000660:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:616
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:623
 80000664:	24050002 	li	a1,2
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:617
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:624
 80000668:	24060002 	li	a2,2
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:619
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:626
 8000066c:	1000000e 	b	800006a8 <nh_endcase>
 80000670:	24070005 	li	a3,5
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:620
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:627
 80000674:	00000000 	nop
 
 80000678 <nh_caseORW>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:622
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:629
 80000678:	24010006 	li	at,6
 8000067c:	17210007 	bne	t9,at,8000069c <nh_caseORNW>
 80000680:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:623
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:630
 80000684:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:624
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:631
 80000688:	24050002 	li	a1,2
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:625
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:632
 8000068c:	24060007 	li	a2,7
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:627
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:634
 80000690:	10000005 	b	800006a8 <nh_endcase>
 80000694:	24070000 	li	a3,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:628
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:635
 80000698:	00000000 	nop
 
 8000069c <nh_caseORNW>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:631
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:638
 8000069c:	24050003 	li	a1,3
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:632
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:639
 800006a0:	24060001 	li	a2,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:633
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:640
 800006a4:	24070005 	li	a3,5
 
 800006a8 <nh_endcase>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:635
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:642
 800006a8:	3c018000 	lui	at,0x8000
 800006ac:	a0250b47 	sb	a1,2887(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:636
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:643
 800006b0:	3c018000 	lui	at,0x8000
 800006b4:	a0260b46 	sb	a2,2886(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:637
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:644
 800006b8:	3c018000 	lui	at,0x8000
 800006bc:	a0270b45 	sb	a3,2885(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:638
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:645
 800006c0:	03e00008 	jr	ra
 800006c4:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:639
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:646
 800006c8:	00000000 	nop
 
 800006cc <next_loc>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:647
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:654
 800006cc:	3c198000 	lui	t9,0x8000
 800006d0:	83390b48 	lb	t9,2888(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:648
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:655
 800006d4:	232b0000 	addi	t3,t9,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:649
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:656
 800006d8:	316b000f 	andi	t3,t3,0xf
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:650
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:657
 800006dc:	0019c902 	srl	t9,t9,0x4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:651
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:658
 800006e0:	232c0000 	addi	t4,t9,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:653
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:660
 800006e4:	3c198000 	lui	t9,0x8000
 800006e8:	83390b49 	lb	t9,2889(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:654
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:661
 800006ec:	232d0000 	addi	t5,t9,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:655
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:662
 800006f0:	31ad000f 	andi	t5,t5,0xf
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:656
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:663
 800006f4:	0019c902 	srl	t9,t9,0x4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:657
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:664
 800006f8:	232e0000 	addi	t6,t9,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:658
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:665
 800006fc:	3c018000 	lui	at,0x8000
 80000700:	a02b0b42 	sb	t3,2882(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:659
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:666
 80000704:	3c018000 	lui	at,0x8000
 80000708:	a02c0b43 	sb	t4,2883(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:660
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:667
 8000070c:	3c018000 	lui	at,0x8000
 80000710:	a02d0b40 	sb	t5,2880(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:661
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:668
 80000714:	3c018000 	lui	at,0x8000
 80000718:	a02e0b41 	sb	t6,2881(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:662
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:669
 8000071c:	03e00008 	jr	ra
 80000720:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:663
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:670
 80000724:	00000000 	nop
 
 80000728 <next_step>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:679
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:686
 80000728:	3c088000 	lui	t0,0x8000
 8000072c:	81080b7c 	lb	t0,2940(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:680
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:687
 80000730:	150000b1 	bnez	t0,800009f8 <next_step_manual>
 80000734:	00000000 	nop
 
 80000738 <next_step_auto>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:684
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:691
 80000738:	3c088000 	lui	t0,0x8000
 8000073c:	8d080b84 	lw	t0,2948(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:685
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:692
 80000740:	01000008 	jr	t0
 80000744:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:686
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:693
 80000748:	00000000 	nop
 
 8000074c <nsa_running>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:693
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:700
 8000074c:	0c000290 	jal	80000a40 <check_off_black_line>
 80000750:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:694
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:701
 80000754:	14400006 	bnez	v0,80000770 <nsa_running_to_backoff>
 80000758:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:695
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:702
 8000075c:	24080033 	li	t0,51
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:696
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:703
 80000760:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:697
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:704
 80000764:	080000d0 	j	80000340 <ret_next_step>
 80000768:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:698
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:705
 8000076c:	00000000 	nop
 
 80000770 <nsa_running_to_backoff>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:704
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:711
 80000770:	3c088000 	lui	t0,0x8000
 80000774:	81080b4b 	lb	t0,2891(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:705
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:712
 80000778:	31080007 	andi	t0,t0,0x7
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:706
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:713
 8000077c:	3c018000 	lui	at,0x8000
 80000780:	ac280b88 	sw	t0,2952(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:707
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:714
 80000784:	21080004 	addi	t0,t0,4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:708
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:715
 80000788:	24090008 	li	t1,8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:709
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:716
 8000078c:	012001f4 	teq	t1,zero,0x7
 80000790:	0109001a 	div	zero,t0,t1
 80000794:	2401ffff 	li	at,-1
@@ -1286,74 +1286,74 @@ N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:709
 8000079c:	3c018000 	lui	at,0x8000
 800007a0:	010101b4 	teq	t0,at,0x6
 800007a4:	00004010 	mfhi	t0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:710
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:717
 800007a8:	3c018000 	lui	at,0x8000
 800007ac:	ac280b8c 	sw	t0,2956(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:713
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:720
 800007b0:	3c088000 	lui	t0,0x8000
 800007b4:	8d080b88 	lw	t0,2952(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:714
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:721
 800007b8:	3c018000 	lui	at,0x8000
 800007bc:	ac280b90 	sw	t0,2960(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:717
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:724
 800007c0:	3c088000 	lui	t0,0x8000
 800007c4:	250807e4 	addiu	t0,t0,2020
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:718
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:725
 800007c8:	3c018000 	lui	at,0x8000
 800007cc:	ac280b84 	sw	t0,2948(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:719
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:726
 800007d0:	24080022 	li	t0,34
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:720
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:727
 800007d4:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:721
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:728
 800007d8:	080000d0 	j	80000340 <ret_next_step>
 800007dc:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:722
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:729
 800007e0:	00000000 	nop
 
 800007e4 <nsa_back_off>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:730
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:737
 800007e4:	0c000290 	jal	80000a40 <check_off_black_line>
 800007e8:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:731
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:738
 800007ec:	10400006 	beqz	v0,80000808 <nsa_back_off_online>
 800007f0:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:732
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:739
 800007f4:	24080022 	li	t0,34
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:733
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:740
 800007f8:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:734
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:741
 800007fc:	080000d0 	j	80000340 <ret_next_step>
 80000800:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:735
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:742
 80000804:	00000000 	nop
 
 80000808 <nsa_back_off_online>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:740
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:747
 80000808:	3c088000 	lui	t0,0x8000
 8000080c:	2508082c 	addiu	t0,t0,2092
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:741
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:748
 80000810:	3c018000 	lui	at,0x8000
 80000814:	ac280b84 	sw	t0,2948(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:742
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:749
 80000818:	24080000 	li	t0,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:743
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:750
 8000081c:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:744
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:751
 80000820:	080000d0 	j	80000340 <ret_next_step>
 80000824:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:745
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:752
 80000828:	00000000 	nop
 
 8000082c <nsa_find_valid_direction>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:753
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:760
 8000082c:	3c088000 	lui	t0,0x8000
 80000830:	8d080b90 	lw	t0,2960(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:754
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:761
 80000834:	21080001 	addi	t0,t0,1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:755
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:762
 80000838:	24090008 	li	t1,8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:756
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:763
 8000083c:	012001f4 	teq	t1,zero,0x7
 80000840:	0109001a 	div	zero,t0,t1
 80000844:	2401ffff 	li	at,-1
@@ -1361,320 +1361,320 @@ N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:756
 8000084c:	3c018000 	lui	at,0x8000
 80000850:	010101b4 	teq	t0,at,0x6
 80000854:	00004010 	mfhi	t0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:757
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:764
 80000858:	3c018000 	lui	at,0x8000
 8000085c:	ac280b90 	sw	t0,2960(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:760
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:767
 80000860:	3c098000 	lui	t1,0x8000
 80000864:	8d290b88 	lw	t1,2952(t1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:761
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:768
 80000868:	1109000e 	beq	t0,t1,800008a4 <nsa_find_to_stop>
 8000086c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:764
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:771
 80000870:	3c098000 	lui	t1,0x8000
 80000874:	8d290b8c 	lw	t1,2956(t1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:765
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:772
 80000878:	1109ffec 	beq	t0,t1,8000082c <nsa_find_valid_direction>
 8000087c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:768
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:775
 80000880:	3c088000 	lui	t0,0x8000
 80000884:	250808cc 	addiu	t0,t0,2252
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:769
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:776
 80000888:	3c018000 	lui	at,0x8000
 8000088c:	ac280b84 	sw	t0,2948(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:770
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:777
 80000890:	24080030 	li	t0,48
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:771
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:778
 80000894:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:772
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:779
 80000898:	080000d0 	j	80000340 <ret_next_step>
 8000089c:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:778
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:785
 800008a0:	00000000 	nop
 
 800008a4 <nsa_find_to_stop>:
 800008a4:	24080000 	li	t0,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:779
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:786
 800008a8:	3c01bf60 	lui	at,0xbf60
 800008ac:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:780
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:787
 800008b0:	3c088000 	lui	t0,0x8000
 800008b4:	250809e4 	addiu	t0,t0,2532
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:781
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:788
 800008b8:	3c018000 	lui	at,0x8000
 800008bc:	ac280b84 	sw	t0,2948(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:782
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:789
 800008c0:	080000d0 	j	80000340 <ret_next_step>
 800008c4:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:783
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:790
 800008c8:	00000000 	nop
 
 800008cc <nsa_rotating>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:791
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:798
 800008cc:	3c088000 	lui	t0,0x8000
 800008d0:	81080b4b 	lb	t0,2891(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:792
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:799
 800008d4:	31080007 	andi	t0,t0,0x7
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:795
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:802
 800008d8:	3c098000 	lui	t1,0x8000
 800008dc:	8d290b90 	lw	t1,2960(t1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:796
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:803
 800008e0:	11090006 	beq	t0,t1,800008fc <nsa_rotating_to_verify>
 800008e4:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:797
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:804
 800008e8:	24080030 	li	t0,48
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:798
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:805
 800008ec:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:799
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:806
 800008f0:	080000d0 	j	80000340 <ret_next_step>
 800008f4:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:800
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:807
 800008f8:	00000000 	nop
 
 800008fc <nsa_rotating_to_verify>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:805
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:812
 800008fc:	3c088000 	lui	t0,0x8000
 80000900:	81080b48 	lb	t0,2888(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:806
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:813
 80000904:	3c018000 	lui	at,0x8000
 80000908:	ac280b94 	sw	t0,2964(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:807
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:814
 8000090c:	3c088000 	lui	t0,0x8000
 80000910:	81080b49 	lb	t0,2889(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:808
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:815
 80000914:	3c018000 	lui	at,0x8000
 80000918:	ac280b98 	sw	t0,2968(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:811
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:818
 8000091c:	24080000 	li	t0,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:812
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:819
 80000920:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:813
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:820
 80000924:	a0280010 	sb	t0,16(at)
 80000928:	3c088000 	lui	t0,0x8000
 8000092c:	25080944 	addiu	t0,t0,2372
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:814
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:821
 80000930:	3c018000 	lui	at,0x8000
 80000934:	ac280b84 	sw	t0,2948(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:815
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:822
 80000938:	080000d0 	j	80000340 <ret_next_step>
 8000093c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:824
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:831
 80000940:	00000000 	nop
 
 80000944 <nsa_verify_answer>:
 80000944:	0c000290 	jal	80000a40 <check_off_black_line>
 80000948:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:825
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:832
 8000094c:	1040000a 	beqz	v0,80000978 <nsa_verify_online>
 80000950:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:826
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:833
 80000954:	3c088000 	lui	t0,0x8000
 80000958:	250807e4 	addiu	t0,t0,2020
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:827
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:834
 8000095c:	3c018000 	lui	at,0x8000
 80000960:	ac280b84 	sw	t0,2948(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:828
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:835
 80000964:	24080022 	li	t0,34
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:829
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:836
 80000968:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:830
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:837
 8000096c:	080000d0 	j	80000340 <ret_next_step>
 80000970:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:836
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:843
 80000974:	00000000 	nop
 
 80000978 <nsa_verify_online>:
 80000978:	3c088000 	lui	t0,0x8000
 8000097c:	81080b48 	lb	t0,2888(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:837
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:844
 80000980:	3c098000 	lui	t1,0x8000
 80000984:	8d290b94 	lw	t1,2964(t1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:838
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:845
 80000988:	1509000c 	bne	t0,t1,800009bc <nsa_verify_to_running>
 8000098c:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:841
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:848
 80000990:	3c088000 	lui	t0,0x8000
 80000994:	81080b49 	lb	t0,2889(t0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:842
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:849
 80000998:	3c098000 	lui	t1,0x8000
 8000099c:	8d290b98 	lw	t1,2968(t1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:843
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:850
 800009a0:	15090006 	bne	t0,t1,800009bc <nsa_verify_to_running>
 800009a4:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:846
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:853
 800009a8:	24080033 	li	t0,51
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:847
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:854
 800009ac:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:848
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:855
 800009b0:	080000d0 	j	80000340 <ret_next_step>
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:849
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:856
 800009b4:	a0280010 	sb	t0,16(at)
 800009b8:	00000000 	nop
 
 800009bc <nsa_verify_to_running>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:854
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:861
 800009bc:	24080033 	li	t0,51
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:855
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:862
 800009c0:	3c01bf60 	lui	at,0xbf60
 800009c4:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:856
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:863
 800009c8:	3c088000 	lui	t0,0x8000
 800009cc:	2508074c 	addiu	t0,t0,1868
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:857
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:864
 800009d0:	3c018000 	lui	at,0x8000
 800009d4:	ac280b84 	sw	t0,2948(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:858
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:865
 800009d8:	080000d0 	j	80000340 <ret_next_step>
 800009dc:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:859
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:866
 800009e0:	00000000 	nop
 
 800009e4 <nsa_stop>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:865
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:872
 800009e4:	24080000 	li	t0,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:866
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:873
 800009e8:	3c01bf60 	lui	at,0xbf60
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:867
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:874
 800009ec:	080000d0 	j	80000340 <ret_next_step>
 800009f0:	a0280010 	sb	t0,16(at)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:868
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:875
 800009f4:	00000000 	nop
 
 800009f8 <next_step_manual>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:883
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:878
 800009f8:	3c198000 	lui	t9,0x8000
 800009fc:	83390b4a 	lb	t9,2890(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:884
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:879
 80000a00:	3c028000 	lui	v0,0x8000
 80000a04:	80420b4a 	lb	v0,2890(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:885
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:880
 80000a08:	3c038000 	lui	v1,0x8000
 80000a0c:	80630b4a 	lb	v1,2890(v1)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:886
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:881
 80000a10:	33390010 	andi	t9,t9,0x10
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:887
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:882
 80000a14:	30420008 	andi	v0,v0,0x8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:890
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:885
 80000a18:	0c0002ad 	jal	80000ab4 <DEB_rdbtns>
 80000a1c:	30630007 	andi	v1,v1,0x7
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:892
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:887
 80000a20:	0c000115 	jal	80000454 <btn2mot>
 80000a24:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:893
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:888
 80000a28:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:894
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:889
 80000a2c:	3c19bf60 	lui	t9,0xbf60
 80000a30:	37390010 	ori	t9,t9,0x10
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:896
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:891
 80000a34:	1000fe42 	b	80000340 <ret_next_step>
 80000a38:	af220000 	sw	v0,0(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:897
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:892
 80000a3c:	00000000 	nop
 
 80000a40 <check_off_black_line>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:911
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:906
 80000a40:	3c028000 	lui	v0,0x8000
 80000a44:	80420b4a 	lb	v0,2890(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:913
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:908
 80000a48:	03e00008 	jr	ra
 80000a4c:	30420001 	andi	v0,v0,0x1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:914
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:909
 80000a50:	00000000 	nop
 
 80000a54 <reorder_btns>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:925
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:920
 80000a54:	0000c820 	add	t9,zero,zero
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:928
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:923
 80000a58:	0004a8c2 	srl	s5,a0,0x3
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:929
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:924
 80000a5c:	32b50001 	andi	s5,s5,0x1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:930
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:925
 80000a60:	2401fffe 	li	at,-2
 80000a64:	0321c824 	and	t9,t9,at
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:931
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:926
 80000a68:	0335c825 	or	t9,t9,s5
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:934
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:929
 80000a6c:	0004a840 	sll	s5,a0,0x1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:935
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:930
 80000a70:	32b50002 	andi	s5,s5,0x2
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:936
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:931
 80000a74:	2401fffd 	li	at,-3
 80000a78:	0321c824 	and	t9,t9,at
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:937
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:932
 80000a7c:	0335c825 	or	t9,t9,s5
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:940
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:935
 80000a80:	0004a882 	srl	s5,a0,0x2
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:941
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:936
 80000a84:	32b50004 	andi	s5,s5,0x4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:942
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:937
 80000a88:	2401fffb 	li	at,-5
 80000a8c:	0321c824 	and	t9,t9,at
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:943
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:938
 80000a90:	0335c825 	or	t9,t9,s5
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:946
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:941
 80000a94:	0004a840 	sll	s5,a0,0x1
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:947
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:942
 80000a98:	32b50008 	andi	s5,s5,0x8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:948
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:943
 80000a9c:	2401fff7 	li	at,-9
 80000aa0:	0321c824 	and	t9,t9,at
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:949
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:944
 80000aa4:	0335c825 	or	t9,t9,s5
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:955
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:950
 80000aa8:	03e00008 	jr	ra
 80000aac:	03202020 	add	a0,t9,zero
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:956
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:951
 80000ab0:	00000000 	nop
 
 80000ab4 <DEB_rdbtns>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:972
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:967
 80000ab4:	3c19bf80 	lui	t9,0xbf80
 80000ab8:	37390008 	ori	t9,t9,0x8
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:973
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:968
 80000abc:	8f240000 	lw	a0,0(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:976
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:971
 80000ac0:	23bdfffc 	addi	sp,sp,-4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:977
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:972
 80000ac4:	afbf0000 	sw	ra,0(sp)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:978
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:973
 80000ac8:	0c000295 	jal	80000a54 <reorder_btns>
 80000acc:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:979
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:974
 80000ad0:	00000000 	nop
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:980
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:975
 80000ad4:	8fbf0000 	lw	ra,0(sp)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:981
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:976
 80000ad8:	23bd0004 	addi	sp,sp,4
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:984
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:979
 80000adc:	03e00008 	jr	ra
 80000ae0:	3084001f 	andi	a0,a0,0x1f
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:985
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:980
 80000ae4:	00000000 	nop
 
 80000ae8 <LED_wrleds>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:995
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:990
 80000ae8:	20590000 	addi	t9,v0,0
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:996
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:991
 80000aec:	333900ff 	andi	t9,t9,0xff
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:997
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:992
 80000af0:	3c02bf80 	lui	v0,0xbf80
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:999
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:994
 80000af4:	03e00008 	jr	ra
 80000af8:	ac590000 	sw	t9,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1000
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:995
 80000afc:	00000000 	nop
 
 80000b00 <SS_wrdpts>:
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1017
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1012
 80000b00:	3c198000 	lui	t9,0x8000
 80000b04:	83390b4f 	lb	t9,2895(t9)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1018
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1013
 80000b08:	3c02bf70 	lui	v0,0xbf70
 80000b0c:	3442000c 	ori	v0,v0,0xc
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1020
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1015
 80000b10:	03e00008 	jr	ra
 80000b14:	ac590000 	sw	t9,0(v0)
-N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1021
+N:\Projects\ECE540_Proj_02\proj_02_software\proj_02_software/main.S:1016
 80000b18:	00000000 	nop
 
 Disassembly of section .data:
@@ -2176,7 +2176,7 @@ Disassembly of section .debug_line:
  144:	02000205 	0x2000205
  148:	3a038000 	xori	v1,s0,0x8000
  14c:	00040201 	0x40201
- 150:	01fe0101 	0x1fe0101
+ 150:	01fc0101 	0x1fc0101
  154:	00020000 	sll	zero,v0,0x0
  158:	0000001d 	0x1d
  15c:	0efb0101 	jal	bec0404 <MSKLOCy+0xaed0404>
@@ -2188,7 +2188,7 @@ Disassembly of section .debug_line:
  174:	00000000 	nop
  178:	02050000 	0x2050000
  17c:	80000204 	lb	zero,516(zero)
- 180:	01029c03 	0x1029c03
+ 180:	0102a303 	0x102a303
  184:	834b134b 	lb	t3,4939(k0)
  188:	83834b83 	lb	v1,19331(gp)
  18c:	83138313 	lb	s3,-31981(t8)
@@ -2285,26 +2285,27 @@ Disassembly of section .debug_line:
  2f8:	4b4b8583 	c2	0x14b8583
  2fc:	834b874b 	lb	t3,-30901(k0)
  300:	50838383 	beql	a0,v1,fffe1110 <MSKLOCx+0xfe1110>
- 304:	03834b4b 	0x3834b4b
- 308:	83834a0f 	lb	v1,18959(gp)
- 30c:	144b4b83 	bne	v0,t3,1311c <MSKSENSOR+0x321c>
- 310:	4b831383 	c2	0x1831383
- 314:	03831383 	0x3831383
- 318:	13834a0e 	beq	gp,v1,12b54 <MSKSENSOR+0x2c54>
- 31c:	4a0b0383 	c2	0xb0383
- 320:	834b4b4d 	lb	t3,19277(k0)
- 324:	834b4b4d 	lb	t3,19277(k0)
- 328:	834b4b4d 	lb	t3,19277(k0)
- 32c:	834b4b4d 	lb	t3,19277(k0)
- 330:	0383134f 	0x383134f
- 334:	4d834a10 	0x4d834a10
- 338:	4b834b4b 	c2	0x1834b4b
- 33c:	83134c4b 	lb	s3,19531(t8)
- 340:	4b4a0a03 	c2	0x14a0a03
- 344:	83134b4b 	lb	s3,19275(t8)
- 348:	834a1103 	lb	t2,4355(k0)
- 34c:	02831383 	0x2831383
- 350:	01010004 	sllv	zero,at,t0
+ 304:	4d834b4b 	0x4d834b4b
+ 308:	4b838383 	c2	0x1838383
+ 30c:	1383144b 	beq	gp,v1,543c <MSKBOTINFO+0x533d>
+ 310:	13834b83 	beq	gp,v1,13120 <MSKSENSOR+0x3220>
+ 314:	4a0e0383 	c2	0xe0383
+ 318:	03831383 	0x3831383
+ 31c:	4b4d4a0b 	c2	0x14d4a0b
+ 320:	4b4d834b 	c2	0x14d834b
+ 324:	4b4d834b 	c2	0x14d834b
+ 328:	4b4d834b 	c2	0x14d834b
+ 32c:	134f834b 	beq	k0,t7,fffe105c <MSKLOCx+0xfe105c>
+ 330:	4a100383 	c2	0x100383
+ 334:	4b4b4d83 	c2	0x14b4d83
+ 338:	4c4b4b83 	0x4c4b4b83
+ 33c:	0a038313 	j	80e0c4c <MSKLOCy+0x70f0c4c>
+ 340:	4b4b4b4a 	c2	0x14b4b4a
+ 344:	11038313 	beq	t0,v1,fffe0f94 <MSKLOCx+0xfe0f94>
+ 348:	1383834a 	beq	gp,v1,fffe1074 <MSKLOCx+0xfe1074>
+ 34c:	00040283 	sra	zero,a0,0xa
+ 350:	Address 0x0000000000000350 is out of bounds.
+
 
 Disassembly of section .pdr:
 
