@@ -1,14 +1,21 @@
-// robot_icon.v
+// robot_icon_v2.v
 // Thong & Deepen
 //
 // Handle Icon of the Rojobot. This version includes sprites and animation
 
 module robot_icon_v2 #(
-    parameter SCALING_FACTOR = 34,
+    parameter SCALING_FACTOR = 6,
     parameter MARGIN = 128,
-    parameter ANIMATION_COUNTDOWN = 35000000,
-    localparam MEM_ROWS = SCALING_FACTOR*8,
-    localparam MEM_COLS = SCALING_FACTOR*3
+    parameter ANIMATION_COUNTDOWN = 8_000_000,
+    parameter SPRITE_COLS = 34,
+    parameter SPRITE_ROWS = 34,
+    
+    localparam MEM_ROWS = SPRITE_ROWS*8,
+    localparam MEM_COLS = SPRITE_COLS*3,
+    localparam SPRITE_SIZE = SPRITE_COLS * SPRITE_ROWS,
+    localparam FRAME_ROW_SIZE = MEM_COLS * SPRITE_ROWS, 
+    localparam ROBOT_CENTER_TO_BOUND_X = (SPRITE_COLS - SCALING_FACTOR) / 2,
+    localparam ROBOT_CENTER_TO_BOUND_Y = (SPRITE_ROWS - SCALING_FACTOR) / 2
 )(
     input signed [31:0] pixel_row,
     input signed [31:0] pixel_column,
@@ -17,10 +24,14 @@ module robot_icon_v2 #(
     input [7:0]         BotInfo_reg,
     input               clk,
     input               reset,
-    output reg [11:0] icon
+    output reg [11:0]   icon
 );
 
   //*** NOTE: 000 is reserved for transparent color. Use 001 to mimic "black" color
+  
+  //*** NOTE: handle when robot stop: set frame column to 1 & stop counting
+  
+  //*** NOTE: too much delay from LocX, LocX to determine robot_x, robot_y. The reason might be due to multiplication
   
   // ==================================================
   // DECLARATIONS
@@ -35,33 +46,50 @@ module robot_icon_v2 #(
   // counter for next frame in the animation
   reg [31:0] counter;
   
-  // ROM storing the animation sprites
-  reg [11:0] mem [MEM_ROWS-1:0][MEM_COLS-1:0];
-  
-  // current frame column & frame row
+  // frame column & frame row
   reg signed [31:0] frame_col, frame_row;
   
   // control direction to move the frame column: -1 or 1
   reg signed [31:0] frame_direction;
   
+  // RAM
+  wire [31:0] read_addr;
+  wire [11:0] ram_out;
+  
+  // ==================================================
+  // INSTANCES
+  // ==================================================
+  
+  // init the ram
+  ram_pikachu ram_pikachu(
+    .read_addr(read_addr),
+    .clk(clk),
+    .q(ram_out)
+  );
+  
   // ==================================================
   // LOGIC
   // ==================================================
   
-  // init memory
-  initial begin
-    $readmemh("pikachu.mem", mem);
-  end
+  // --------------------------------------------------
+  // compute ram address
+  // --------------------------------------------------
+  assign read_addr = frame_row * FRAME_ROW_SIZE + frame_col * SPRITE_COLS + robot_y * MEM_COLS + robot_x; 
   
-  // counter
+  
+  // --------------------------------------------------
+  // counter for next frame column: next frame if timeup, change direction if column 0 or 2
+  // --------------------------------------------------
   always @(posedge clk) begin
     if (reset) begin
       counter <= ANIMATION_COUNTDOWN;
       frame_col <= 0;
       frame_direction <= 1;
     end
-    else begin
-      // determine frame column direction
+    else if (BotInfo_reg[7:4] > 0)begin
+      // only change frame if robot is still moving
+      
+      // determine next frame direction based on frame column: 0 then next frame on the right, 2 then next frame on the left 
       if (frame_col == 2) begin
         frame_direction <= -1;
       end
@@ -78,51 +106,33 @@ module robot_icon_v2 #(
         counter <= counter - 1;
       end
     end
-  end
-  
-  // determine pixel color
-  always @(posedge clk) begin
-  
-    if (  robot_x >= SCALING_FACTOR
-          || robot_y >= SCALING_FACTOR
-          || robot_x < 0
-          || robot_y < 0
-    ) begin
-      // transparent if not robot pixel
-      icon <= 12'h000;
-    end
-    else if (  frame_row*SCALING_FACTOR + robot_y >= MEM_ROWS
-          || frame_row*SCALING_FACTOR + robot_y < 0 
-          || frame_col*SCALING_FACTOR + robot_x >= MEM_COLS
-          || frame_col*SCALING_FACTOR + robot_x < 0
-    ) begin
-      // cyan if out-of-bound
-      icon <= 12'h0FF;
-    end
     else begin
-      icon <= mem[frame_row*SCALING_FACTOR + robot_y][frame_col*SCALING_FACTOR + robot_x];
+      // do not change frame and set frame column to 1
+      frame_col <= 1;
     end
   end
   
-  // determine robot X and Y pixels corresponding to the screen coordinates
+  // --------------------------------------------------
+  // determine pixel color
+  // --------------------------------------------------
   always @(*) begin
   
     // robot bounding rect
-    robot_screen_left   = LocX_reg * SCALING_FACTOR;
-    robot_screen_right  = (LocX_reg+1) * SCALING_FACTOR - 1;
-    robot_screen_top    = LocY_reg * SCALING_FACTOR;
-    robot_screen_bottom = (LocY_reg+1) * SCALING_FACTOR - 1;
+    robot_screen_left   = LocX_reg     * SCALING_FACTOR     - ROBOT_CENTER_TO_BOUND_X;
+    robot_screen_right  = (LocX_reg+1) * SCALING_FACTOR - 1 + ROBOT_CENTER_TO_BOUND_X;
+    robot_screen_top    = LocY_reg     * SCALING_FACTOR     - ROBOT_CENTER_TO_BOUND_Y;
+    robot_screen_bottom = (LocY_reg+1) * SCALING_FACTOR - 1 + ROBOT_CENTER_TO_BOUND_Y;
   
-    // determine robot X pixel
-    robot_x = SCALING_FACTOR;
+    // determine robot X pixel mapped to a frame
+    robot_x = -1;
     if (  robot_screen_left <= (pixel_column-MARGIN) 
           && (pixel_column-MARGIN) <= robot_screen_right
     ) begin
       robot_x = pixel_column-MARGIN - robot_screen_left;
     end
 
-    // determine robot Y pixel
-    robot_y = SCALING_FACTOR;
+    // determine robot Y pixel mapped to a frame
+    robot_y = -1;
     if (  robot_screen_top <= pixel_row 
           && pixel_row <= robot_screen_bottom
     ) begin
@@ -141,6 +151,22 @@ module robot_icon_v2 #(
       3'h7: frame_row = 6;
       default: frame_row = 3;
     endcase
+    
+    // pixel color
+    icon = 12'h000;
+    if (     robot_x < 0
+          || robot_y < 0
+          || frame_row*SPRITE_ROWS + robot_y >= MEM_ROWS
+          || frame_row*SPRITE_ROWS + robot_y < 0 
+          || frame_col*SPRITE_COLS + robot_x >= MEM_COLS
+          || frame_col*SPRITE_COLS + robot_x < 0
+    ) begin
+      // cyan if out-of-bound
+      icon = 12'h000;
+    end
+    else begin
+      icon = ram_out;
+    end
     
   end
   
