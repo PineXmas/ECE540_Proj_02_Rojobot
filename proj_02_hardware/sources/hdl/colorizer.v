@@ -6,6 +6,7 @@
 
 module colorizer(
     input [11:0]      icon,
+    input [11:0]      map_color,
     input [1:0]       world_pixel,
     input             video_on,
     output reg [3:0]  VGA_R,

@@ -60,6 +60,7 @@ module mfp_nexys4_ddr(
   wire [1:0]  worldmap_data, worldmap_data_part_1, worldmap_data_lr, worldmap_data_loop;
   wire [13:0] vid_addr;
   wire [1:0]  world_pixel, world_pixel_part_1, world_pixel_lr, world_pixel_loop;
+  wire [11:0] map_color;
   
   // VGA
   wire [11:0] pixel_column, pixel_row;
@@ -162,16 +163,7 @@ module mfp_nexys4_ddr(
     .vid_addr(vid_addr)
   );
   
-  // rojobot ICON
-//  robot_icon robot_icon(
-//    .pixel_row(pixel_row),
-//    .pixel_column(pixel_column),
-//    .LocX_reg(LocX_reg),
-//    .LocY_reg(LocY_reg),
-//    .BotInfo_reg(BotInfo_reg),
-//    .icon(icon)
-//  );
-  
+  // rojobot ICON  
   robot_icon_v2 robot_icon_v2(
     .clk(clk_75),
     .reset(~(debounced_PB[5])),
@@ -183,12 +175,18 @@ module mfp_nexys4_ddr(
     .icon(icon)
   );
   
-  //*** NOTE: delay the icon signal, for sync with the world_pixel signal, which is 1-cycle late, due to the world-map-ROM
+  // map colorizer
+  map_colorizer map_colorizer(
+    .pixel_row(pixel_row),
+    .pixel_column(pixel_column),
+    .map_value(world_pixel),
+    .map_color(map_color)
+  );
   
   // colorizer
-  colorizer colorizer(
+  colorizer_v2 colorizer_v2(
     .icon(icon),
-    .world_pixel(world_pixel),
+    .map_color(map_color),
     .video_on(video_on),
     .VGA_R(VGA_R),
     .VGA_G(VGA_G),
