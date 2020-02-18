@@ -1,11 +1,14 @@
 // ram_pikachu.v
 // Thong & Deepen
 //
-// Store spites of the infamous PIKACHU!
+// Init block RAM from a given mem file
 
-module ram_pikachu
-#(parameter DATA_WIDTH=12, parameter ADDR_WIDTH=15)
-(
+module ram_block
+#(
+  parameter DATA_WIDTH=12, 
+  parameter ADDR_WIDTH=15,
+  parameter INIT_FILE="pikachu_02.mem"
+)(
 	input [(DATA_WIDTH-1):0] data,
 	input [(ADDR_WIDTH-1):0] read_addr, write_addr,
 	input we, clk,
@@ -17,7 +20,7 @@ module ram_pikachu
 
 	initial
 	begin
-	  $readmemh("pikachu_02.mem", ram);
+	  $readmemh(INIT_FILE, ram);
 	end
 
 	always @ (posedge clk)

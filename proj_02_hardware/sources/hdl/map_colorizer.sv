@@ -3,7 +3,13 @@
 //
 // Determine color at a given map position, based on the pixel position and map value
 
-module map_colorizer(
+module map_colorizer
+#(
+  parameter COLOR_WIDTH = 12,
+  parameter SPRITE_BLACK = 0,
+  parameter SPRITE_WALL  = 0,
+  parameter SPRITE_EMPTY = 0
+)(
   input [1:0]       map_value,
   input [11:0]      pixel_row,
   input [11:0]      pixel_column,
@@ -14,75 +20,8 @@ module map_colorizer(
 // DECLARATIONS
 // ==================================================
 
-reg [63:0][11:0] tmp = {
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF,
-  12'h0FF
-};
-
 // grass sprite
-reg [63:0][11:0] sprite_grass = {
+reg [767:0] sprite_grass = {
   12'h7b9,
   12'h7b9,
   12'h7b9,
@@ -150,7 +89,7 @@ reg [63:0][11:0] sprite_grass = {
 };
 
 // road sprite
-reg [255:0][11:0] sprite_road = {
+reg [3071:0] sprite_road = {
   12'h7b9,
   12'h7b9,
   12'hbb9,
@@ -410,7 +349,7 @@ reg [255:0][11:0] sprite_road = {
 };
 
 // flower sprite
-reg [255:0][11:0] sprite_flower = {
+reg [3071:0] sprite_flower = {
   12'h7b9,
   12'h7b9,
   12'h7b9,
@@ -677,11 +616,12 @@ reg [255:0][11:0] sprite_flower = {
 always @(*) begin
   map_color = 12'h000;
   case (map_value)
-    2'b00: map_color = sprite_grass [(pixel_row[2:0] << 3) +  pixel_column[2:0] ];
-//    2'b01: map_color = sprite_road  [(pixel_row[3:0] << 4) +  pixel_column[3:0] ];
-//    2'b10: map_color = sprite_flower[(pixel_row[3:0] << 4) +  pixel_column[3:0] ];
-    2'b01: map_color = 12'h000;
-    2'b10: map_color = 12'hF00;
+    2'b00: map_color = sprite_grass [(12'd63 -  ((pixel_row[2:0] << 3) +  pixel_column[2:0]))*12+:12 ];
+    2'b01: map_color = sprite_road  [(12'd255 - ((pixel_row[3:0] << 4) +  pixel_column[3:0]))*12+:12 ];
+    2'b10: map_color = sprite_flower[(12'd255 - ((pixel_row[3:0] << 4) +  pixel_column[3:0]))*12+:12 ];
+//    2'b00: map_color = tmp [((pixel_row[1:0] << 2) +  pixel_column[1:0])*12+:12 ];
+//    2'b01: map_color = 12'h000;
+//    2'b10: map_color = 12'hF00;
     default: map_color = 12'h000;
   endcase
 end
