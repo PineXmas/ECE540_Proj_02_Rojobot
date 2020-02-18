@@ -10,6 +10,7 @@ module robot_icon_v2 #(
     parameter SPRITE_COLS = 34,
     parameter SPRITE_ROWS = 34,
     
+    localparam MARGIN_ROW = SPRITE_ROWS / 2 - 6,
     localparam MEM_ROWS = SPRITE_ROWS*8,
     localparam MEM_COLS = SPRITE_COLS*3,
     localparam SPRITE_SIZE = SPRITE_COLS * SPRITE_ROWS,
@@ -135,10 +136,10 @@ module robot_icon_v2 #(
 
     // determine robot Y pixel mapped to a frame
     robot_y = -1;
-    if (  robot_screen_top <= pixel_row 
-          && pixel_row <= robot_screen_bottom
+    if (  robot_screen_top <= (pixel_row+MARGIN_ROW) 
+          && (pixel_row+MARGIN_ROW) <= robot_screen_bottom
     ) begin
-      robot_y = pixel_row - robot_screen_top;
+      robot_y = (pixel_row+MARGIN_ROW) - robot_screen_top;
     end
     
     // determine frame row based on orientation: N, NE, E, SE, S, SW, W, NW

@@ -88,7 +88,7 @@ END GROUP
                 0x0000000000000001                ASSERT (((__base + 0x200) == DEFINED (__isr_vec_sw0)?(__isr_vec_sw0 & 0xfffffffe):(__base + 0x200)), __isr_vec_sw0 is not placed at EBASE + 0x200)
                 0x0000000080000200                . = ALIGN (0x8)
 
-.text           0x0000000080000200      0x91c
+.text           0x0000000080000200      0x944
                 0x0000000080000200                _ftext = .
                 0x0000000080000200                PROVIDE (eprol, .)
  *(.text)
@@ -101,7 +101,7 @@ END GROUP
                 0x0000000080000200                __getargs
                 0x0000000080000200                __isr_vec
                 0x0000000080000200                __exception_handle_verbose
- .text          0x0000000080000204      0x918 main.o
+ .text          0x0000000080000204      0x940 main.o
                 0x0000000080000204                main
  *(.text.*)
  *(.gnu.linkonce.t.*)
@@ -114,12 +114,12 @@ END GROUP
 .fini
  *(.fini)
 
-.rel.sdata      0x0000000080000b1c        0x0
-                0x0000000080000b1c                PROVIDE (__runtime_reloc_start, .)
+.rel.sdata      0x0000000080000b44        0x0
+                0x0000000080000b44                PROVIDE (__runtime_reloc_start, .)
  *(.rel.sdata)
-                0x0000000080000b1c                PROVIDE (__runtime_reloc_stop, .)
-                0x0000000080000b1c                PROVIDE (etext, .)
-                0x0000000080000b1c                _etext = .
+                0x0000000080000b44                PROVIDE (__runtime_reloc_stop, .)
+                0x0000000080000b44                PROVIDE (etext, .)
+                0x0000000080000b44                _etext = .
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
@@ -144,35 +144,35 @@ END GROUP
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
-                0x0000000080000b1c                . = .
+                0x0000000080000b44                . = .
 
-.MIPS.abiflags  0x0000000080000b20       0x18
-                0x0000000080000b20                __MIPS_abiflags_start = .
+.MIPS.abiflags  0x0000000080000b48       0x18
+                0x0000000080000b48                __MIPS_abiflags_start = .
  *(.MIPS.abiflags)
  .MIPS.abiflags
-                0x0000000080000b20       0x18 crt0.o
-                0x0000000080000b38                __MIPS_abiflags_end = .
+                0x0000000080000b48       0x18 crt0.o
+                0x0000000080000b60                __MIPS_abiflags_end = .
 
 .rodata
  *(.rdata)
  *(.rodata)
  *(.rodata.*)
  *(.gnu.linkonce.r.*)
-                0x0000000080000b40                . = ALIGN (0x10)
-                0x0000000080000b40                _fdata = .
+                0x0000000080000b60                . = ALIGN (0x10)
+                0x0000000080000b60                _fdata = .
 
-.data           0x0000000080000b40       0x5c
+.data           0x0000000080000b60       0x5c
  *(.data)
- .data          0x0000000080000b40        0x0 crt0.o
- .data          0x0000000080000b40        0x0 boot.o
- .data          0x0000000080000b40        0x0 exceptions.o
- .data          0x0000000080000b40        0x0 dummy.o
- .data          0x0000000080000b40       0x5c main.o
+ .data          0x0000000080000b60        0x0 crt0.o
+ .data          0x0000000080000b60        0x0 boot.o
+ .data          0x0000000080000b60        0x0 exceptions.o
+ .data          0x0000000080000b60        0x0 dummy.o
+ .data          0x0000000080000b60       0x5c main.o
  *(.data.*)
  *(.gnu.linkonce.d.*)
-                0x0000000080000ba0                . = ALIGN (0x8)
-                0x0000000080008ba0                _gp = (. + 0x8000)
-                0x0000000080008ba0                __global = _gp
+                0x0000000080000bc0                . = ALIGN (0x8)
+                0x0000000080008bc0                _gp = (. + 0x8000)
+                0x0000000080008bc0                __global = _gp
 
 .lit8
  *(.lit8)
@@ -184,10 +184,10 @@ END GROUP
  *(.sdata)
  *(.sdata.*)
  *(.gnu.linkonce.s.*)
-                0x0000000080000ba0                . = ALIGN (0x4)
-                0x0000000080000ba0                PROVIDE (edata, .)
-                0x0000000080000ba0                _edata = .
-                0x0000000080000ba0                _fbss = .
+                0x0000000080000bc0                . = ALIGN (0x4)
+                0x0000000080000bc0                PROVIDE (edata, .)
+                0x0000000080000bc0                _edata = .
+                0x0000000080000bc0                _fbss = .
 
 .sbss
  *(.sbss)
@@ -195,20 +195,20 @@ END GROUP
  *(.gnu.linkonce.sb.*)
  *(.scommon)
 
-.bss            0x0000000080000ba0        0x0
-                0x0000000080000ba0                _bss_start = .
+.bss            0x0000000080000bc0        0x0
+                0x0000000080000bc0                _bss_start = .
  *(.bss)
- .bss           0x0000000080000ba0        0x0 crt0.o
- .bss           0x0000000080000ba0        0x0 boot.o
- .bss           0x0000000080000ba0        0x0 exceptions.o
- .bss           0x0000000080000ba0        0x0 dummy.o
- .bss           0x0000000080000ba0        0x0 main.o
+ .bss           0x0000000080000bc0        0x0 crt0.o
+ .bss           0x0000000080000bc0        0x0 boot.o
+ .bss           0x0000000080000bc0        0x0 exceptions.o
+ .bss           0x0000000080000bc0        0x0 dummy.o
+ .bss           0x0000000080000bc0        0x0 main.o
  *(.bss.*)
  *(.gnu.linkonce.b.*)
  *(COMMON)
-                0x0000000080000ba0                . = ALIGN (0x4)
-                0x0000000080000ba0                PROVIDE (end, .)
-                0x0000000080000ba0                _end = .
+                0x0000000080000bc0                . = ALIGN (0x4)
+                0x0000000080000bc0                PROVIDE (end, .)
+                0x0000000080000bc0                _end = .
 
 .startdata
  *(.startdata)
@@ -257,13 +257,13 @@ END GROUP
  .debug_abbrev  0x000000000000003c       0x14 dummy.o
  .debug_abbrev  0x0000000000000050       0x14 main.o
 
-.debug_line     0x0000000000000000      0x352
+.debug_line     0x0000000000000000      0x359
  *(.debug_line)
  .debug_line    0x0000000000000000       0x48 crt0.o
  .debug_line    0x0000000000000048       0x86 boot.o
  .debug_line    0x00000000000000ce       0x4d exceptions.o
  .debug_line    0x000000000000011b       0x37 dummy.o
- .debug_line    0x0000000000000152      0x200 main.o
+ .debug_line    0x0000000000000152      0x207 main.o
 
 .debug_frame
  *(.debug_frame)

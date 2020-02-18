@@ -407,7 +407,7 @@ wr_alldigits:
 
 # ===============================================================================
 # === init_btnluptbl() - initialize button translation lookup table in SP RAM ===
-# === Registers affected: $25, $2                                              ===
+# === Registers affected: $25, $2                                             ===
 # ===============================================================================
 init_btnluptbl: la  $2,     (SP_BTNBAS1)        # $2 gets base of button translation lookup table
                 li  $3,     SP_LSRS             # $3 gets values for 0x00
@@ -464,9 +464,9 @@ init_btnluptbl: la  $2,     (SP_BTNBAS1)        # $2 gets base of button transla
 # =============================================================================
 # === btn2mot() - Button to MotCtl conversion function                      ===
 # === Registers affected: $2, $3                                            ===
-# === $25 contains the button value to convert.                              ===
+# === $25 contains the button value to convert.                             ===
 # === Result (Motor Control register value) is returned in $2               ===
-# === $25 (Button value) is not changed                                      ===
+# === $25 (Button value) is not changed                                     ===
 # =============================================================================
 btn2mot:        la  $3,     (SP_BTNBAS1)        # $3 gets base of button conversion table
                 add $2,     $4, 0               # mask out upper nibble of buttons
@@ -536,9 +536,9 @@ init_mvmttbl:   la  $2,     (SP_MVTBAS1)        # $2 gets base of movement trans
 # =============================================================================
 # === mvmt2cc() - movement to character code conversion function            ===
 # === Registers affected: $2, $3                                            ===
-# === $25 contains the movment value to convert.                             ===
+# === $25 contains the movment value to convert.                            ===
 # === Result (character code to display) is returned in $2                  ===
-# === $25 (movement) is not changed                                          ===
+# === $25 (movement) is not changed                                         ===
 # =============================================================================
 mvmt2cc:        la  $3,     (SP_MVTBAS1)        # $3 gets base of movment conversion table
                 add $2,     $25, 0              # mask out upper nibble of movment
@@ -556,7 +556,7 @@ mvmt2cc:        la  $3,     (SP_MVTBAS1)        # $3 gets base of movment conver
 # ========================================================================
 # === next_mvmt() - Calculate  digit for motion indicator              ===
 # === Registers affected: $12, $25                                     ===
-# === Uses BOTINF_REG (Bot Info register) to get movement.                 ===
+# === Uses BOTINF_REG (Bot Info register) to get movement.             ===
 # ========================================================================
 next_mvmt:      lb  $25,    (BOTINF_REG)        # $25[3:0] = BOTINF_REG[7:4]
                 sb  $25,    SP_OLDMVMT
@@ -570,15 +570,15 @@ back_mvmt2cc:
 
 # ==============================================================================
 # === next_hdg() - Calculate  digits for heading (compass setting)           ===
-# === Registers affected: $11, $14, $13, $25, $2, $3, $4,$5, $6, $7        ===
-# === Uses BOTINF_REG (Bot Info register) to get orientation.  Calculates digits ===
-# === with a case statement based on orientation.                            ===
+# === Registers affected: $11, $14, $13, $25, $2, $3, $4,$5, $6, $7          ===
+# === Uses BOTINF_REG (Bot Info register) to get orientation.  Calculates    ===
+# === digits with a case statement based on orientation.                     ===
 # ==============================================================================
-next_hdg:       lb  $25,    (BOTINF_REG)            # $25[2:0] = BOTINF_REG[2:0] = orientation
-                and $25,    $25,    MSKORIENT           #
+next_hdg:       lb  $25,    (BOTINF_REG)        # $25[2:0] = BOTINF_REG[2:0] = orientation
+                and $25,    $25,    MSKORIENT   #
                 sb  $25,    SP_OLDHDG
                                                 # switch(orientation)  {
-nh_caseORN:     bne $25,    OR_N, nh_caseORNE       #   case(OR_N):
+nh_caseORN:     bne $25,    OR_N, nh_caseORNE   #   case(OR_N):
                 nop                             #
                 li  $5,     00                  #       Dig[2:0] = 000
                 li  $6,     00                  #
@@ -586,7 +586,7 @@ nh_caseORN:     bne $25,    OR_N, nh_caseORNE       #   case(OR_N):
                 beq $0,$0,  nh_endcase          #       break
                 nop
                                                 #
-nh_caseORNE:    bne $25,    OR_NE, nh_caseORE       #   case (OR_NE):
+nh_caseORNE:    bne $25,    OR_NE, nh_caseORE   #   case (OR_NE):
                 nop                             #
                 li  $5,     00                  #       Dig[2:0] = 045
                 li  $6,     04                  #
@@ -594,31 +594,31 @@ nh_caseORNE:    bne $25,    OR_NE, nh_caseORE       #   case (OR_NE):
                 beq $0,$0,  nh_endcase          #       break
                 nop
 
-nh_caseORE:     bne $25,        OR_E, nh_caseORSE   #   case (OR_E):
+nh_caseORE:     bne $25,    OR_E, nh_caseORSE   #   case (OR_E):
                 nop                             #
-                li  $5,     0x00                    #       Dig[2:0] = 090
-                li  $6,     0x09                    #
-                li  $7,     0x00                    #
+                li  $5,     0x00                #       Dig[2:0] = 090
+                li  $6,     0x09                #
+                li  $7,     0x00                #
                 beq $0,$0,  nh_endcase          #       break
                 nop
 
-nh_caseORSE:    bne $25,        OR_SE, nh_caseORS   #   case (OR_SE):
+nh_caseORSE:    bne $25,    OR_SE, nh_caseORS   #   case (OR_SE):
                 nop                             #
-                li  $5,     0x01                    #       Dig[2:0] = 135
-                li  $6,     0x03                    #
-                li  $7,     0x05                    #
+                li  $5,     0x01                #       Dig[2:0] = 135
+                li  $6,     0x03                #
+                li  $7,     0x05                #
                 beq $0,$0,  nh_endcase          #       break
                 nop
 
-nh_caseORS:     bne $25,        OR_S, nh_caseORSW   #   case (OR_S):
+nh_caseORS:     bne $25,    OR_S, nh_caseORSW   #   case (OR_S):
                 nop                             #
-                li  $5,     0x01                    #       Dig[2:0] = 180
-                li  $6,     0x08                    #
+                li  $5,     0x01                #       Dig[2:0] = 180
+                li  $6,     0x08                #
                 li  $7,     00                  #
                 beq $0,$0,  nh_endcase          #       break
                 nop
 
-nh_caseORSW:    bne $25,        OR_SW, nh_caseORW   #   case (OR_SW):
+nh_caseORSW:    bne $25,    OR_SW, nh_caseORW   #   case (OR_SW):
                 nop                             #
                 li  $5,     02                  #       Dig[2:0] = 225
                 li  $6,     02                  #
@@ -626,7 +626,7 @@ nh_caseORSW:    bne $25,        OR_SW, nh_caseORW   #   case (OR_SW):
                 beq $0,$0,  nh_endcase          #       break
                 nop
 
-nh_caseORW:     bne $25,        OR_W, nh_caseORNW   #   case (OR_W):
+nh_caseORW:     bne $25,    OR_W, nh_caseORNW   #   case (OR_W):
                 nop                             #
                 li  $5,     02                  #       Dig[2:0] = 270
                 li  $6,     07                  #
@@ -648,24 +648,24 @@ nh_endcase:     sb  $5,     SP_DIG7             # update the heading display dig
 
 # ==============================================================================
 # === next_loc() - Calculate digits for Rojobot location                     ===
-# === Registers affected: $12, $11, $14, $13, $25                         ===
+# === Registers affected: $12, $11, $14, $13, $25                            ===
 # === Uses LocX and LocY to get location.                                    ===
 # ==============================================================================
-next_loc:       lb      $25,    (LOCx_REG)          # Dig[3:2] gets X-coordinate
+next_loc:       lb      $25,    (LOCx_REG)              # Dig[3:2] gets X-coordinate
                 add     $11,    $25, 0                  # Digit 2 gets lower nibble
-                and     $11, $11,   MSK_HEXDIGIT    #
-                srl     $25, $25, 4                 #
+                and     $11,    $11,   MSK_HEXDIGIT     #
+                srl     $25,    $25, 4                  #
                 add     $12,    $25, 0                  #
 
-                lb      $25,    (LOCy_REG)          # Dig[1:0] gets Y-coordinate
+                lb      $25,    (LOCy_REG)              # Dig[1:0] gets Y-coordinate
                 add     $13,    $25, 0                  # Digit 0 gets lower nibble
-                and     $13, $13,   MSK_HEXDIGIT    #
-                srl     $25, $25, 4                 #
+                and     $13,    $13,   MSK_HEXDIGIT     #
+                srl     $25,    $25, 4                  #
                 add     $14,    $25, 0                  #
-                sb      $11, SP_DIG2
-                sb      $12, SP_DIG3
-                sb      $13, SP_DIG0
-                sb      $14, SP_DIG1
+                sb      $11,    SP_DIG2
+                sb      $12,    SP_DIG3
+                sb      $13,    SP_DIG0
+                sb      $14,    SP_DIG1
                 jr  $ra
                 nop
 
@@ -692,19 +692,32 @@ next_step_auto:
                 jr      $t0
                 nop
 
-// ==================================================
-// State RUNNING: keep moving forward until "off" line
-// ==================================================
+# ==================================================
+# State RUNNING: keep moving forward until "off" line
+# ==================================================
 nsa_running:
-                # keep moving forward until "off" line --> BACKOFF
+
+                # keep moving forward (if no obstacle) until "off" line --> BACKOFF
                 jal     check_off_black_line
                 bne     $v0, $0, nsa_running_to_backoff     # change state to BACKOFF if off line
+                lb      $t0, (SENSOR_REG)                   # read prox-sensor to check for obstacle
+                and     $t0, $t0, 0x18                      # mask out all except bits [4, 3]
+                li      $t1, 0x18                           # compare with 00011000 (0x18) for checking obstacle
+                beq     $t0, $t1, nsa_running_obstacle      # stop if obstacle detected
                 li      $t0, 0x33                           # send command "forward"
                 sb      $t0, (PORT_BOTCTRL)
                 j       ret_next_step
                 nop
 
+nsa_running_obstacle:
+
+                # obstacle detected ahead --> stop
+                sb      $0, (PORT_BOTCTRL)                 # send command "stop"
+                j       ret_next_step
+                nop
+
 nsa_running_to_backoff:
+
                 # reset for a new navigating-session
 
                 # remember starting direction & opposite direction
@@ -728,9 +741,9 @@ nsa_running_to_backoff:
                 j       ret_next_step
                 nop
 
-// ==================================================
-// State BACK OFF: keep moving reverse until "on" line
-// ==================================================
+# ==================================================
+# State BACK OFF: keep moving reverse until "on" line
+# ==================================================
 nsa_back_off:
 
                 # keep moving reverse until robot is on the black line
@@ -751,9 +764,9 @@ nsa_back_off_online:
                 j       ret_next_step                       # return
                 nop
 
-// ==================================================
-// State FIND VALID DIRECTION: eventually try all 6 possible directions (except the starting & the opposite direction)
-// ==================================================
+# ==================================================
+# State FIND VALID DIRECTION: eventually try all 6 possible directions (except the starting & the opposite direction)
+# ==================================================
 nsa_find_valid_direction:
 
                 # try next direction
@@ -789,9 +802,9 @@ nsa_find_to_stop:
                 j       ret_next_step
                 nop
 
-// ==================================================
-// State ROTATING: keep rotating right until trial direction is reached
-// ==================================================
+# ==================================================
+# State ROTATING: keep rotating right until trial direction is reached
+# ==================================================
 nsa_rotating:
 
                 # get current direction
@@ -822,9 +835,9 @@ nsa_rotating_to_verify:
                 j       ret_next_step
                 nop
 
-// ==================================================
-// State VERIFY ANSWER: try current direction if still "on" line for verification, otherwise back-off to find another valid direction
-// ==================================================
+# ==================================================
+# State VERIFY ANSWER: try current direction if still "on" line for verification, otherwise back-off to find another valid direction
+# ==================================================
 nsa_verify_answer:
 
                 # change state to BACKOFF if "off" line
@@ -865,9 +878,9 @@ nsa_verify_to_running:
                 j       ret_next_step                       # return
                 nop
 
-// ==================================================
-// State STOP: stop if there is no valid direction to try
-// ==================================================
+# ==================================================
+# State STOP: stop if there is no valid direction to try
+# ==================================================
 nsa_stop:
                 li      $t0, 0x0                            # send command "stop"
                 sb      $t0, (PORT_BOTCTRL)
