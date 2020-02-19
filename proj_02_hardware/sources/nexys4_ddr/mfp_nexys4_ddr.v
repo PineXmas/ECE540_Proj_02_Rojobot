@@ -62,12 +62,16 @@ module mfp_nexys4_ddr(
   wire [1:0]  world_pixel, world_pixel_part_1, world_pixel_lr, world_pixel_loop;
   wire [11:0] map_color;
   
+  // Title
+  wire [11:0] title_color;
+  
   // VGA
   wire [11:0] pixel_column, pixel_row;
   wire        video_on;
   
   // Scaler
   wire [6:0]  world_row, world_column;
+  wire        out_of_map;
   
   // --------------------------------------------------
   // INSTANCES
@@ -160,7 +164,8 @@ module mfp_nexys4_ddr(
     .world_column(world_column),
     .pixel_row(pixel_row),
     .pixel_column(pixel_column),
-    .vid_addr(vid_addr)
+    .vid_addr(vid_addr),
+    .out_of_map(out_of_map)
   );
   
   // rojobot ICON  
@@ -183,10 +188,19 @@ module mfp_nexys4_ddr(
     .map_color(map_color)
   );
   
+  // title colorizer
+  title_colorizer title_colorizer(
+    .clk(clk_75),
+    .pixel_row(pixel_row),
+    .pixel_column(pixel_column),
+    .title_color(title_color)
+  );
+  
   // colorizer
   colorizer_v2 colorizer_v2(
     .icon(icon),
     .map_color(map_color),
+    .title_color(title_color),
     .video_on(video_on),
     .VGA_R(VGA_R),
     .VGA_G(VGA_G),

@@ -10,15 +10,19 @@ module map_colorizer
   parameter SPRITE_WALL  = 0,
   parameter SPRITE_EMPTY = 0
 )(
-  input [1:0]       map_value,
-  input [11:0]      pixel_row,
-  input [11:0]      pixel_column,
+  input [1:0]       map_value,      // map value returned from the map memory
+  input [11:0]      pixel_row,      // pixel row from the dtg
+  input [11:0]      pixel_column,   // pixel column from the dtg
+  input             out_of_map,     // indicate if the given pixel coordinates is out of the map (1) or not (0)
   output reg [11:0] map_color  
 );
 
 // ==================================================
 // DECLARATIONS
 // ==================================================
+
+// adjust map value based on the out_of_map signal
+wire [1:0] map_value_adjusted;
 
 // sand sprite
 reg [767:0] sprite_sand = {
@@ -488,10 +492,13 @@ reg [767:0] sprite_flower = {
 // LOGIC
 // ==================================================
 
+// adjust map value to '00 (empty) if current pixel is out of the map
+assign map_value_adjusted = out_of_map ? 2'b00 : map_value;
+
 // determine color based on map value
 always @(*) begin
   map_color = 12'h000;
-  case (map_value)
+  case (map_value_adjusted)
     2'b00: map_color = sprite_grass [(12'd63 -  ((pixel_row[2:0] << 3) +  pixel_column[2:0]))*12+:12 ];
     2'b01: map_color = sprite_road  [(12'd255 - ((pixel_row[3:0] << 4) +  pixel_column[3:0]))*12+:12 ];
     2'b10: map_color = sprite_flower[(12'd63 -  ((pixel_row[2:0] << 3) +  pixel_column[2:0]))*12+:12 ];

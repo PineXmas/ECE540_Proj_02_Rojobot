@@ -10,7 +10,7 @@ module robot_icon_v2 #(
     parameter SPRITE_COLS = 34,
     parameter SPRITE_ROWS = 34,
     
-    localparam MARGIN_ROW = SPRITE_ROWS / 2 - 6,
+    localparam MARGIN_ROW = SPRITE_ROWS / 2 - 9,
     localparam MEM_ROWS = SPRITE_ROWS*8,
     localparam MEM_COLS = SPRITE_COLS*3,
     localparam SPRITE_SIZE = SPRITE_COLS * SPRITE_ROWS,
@@ -29,8 +29,6 @@ module robot_icon_v2 #(
 );
 
   //*** NOTE: 000 is reserved for transparent color. Use 001 to mimic "black" color
-  
-  //*** NOTE: handle when robot stop: set frame column to 1 & stop counting
   
   //*** NOTE: too much delay from LocX, LocX to determine robot_x, robot_y. The reason might be due to multiplication
   
